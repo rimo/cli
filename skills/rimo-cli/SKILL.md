@@ -1,11 +1,11 @@
 ---
 name: rimo-cli
-description: Use the `rimo` CLI to interact with the Rimo Voice platform — list/read/search meeting notes, transcripts, and documents, ask AI questions across them, and create notes or append markdown sections to them. Trigger when the user mentions Rimo, asks about meeting notes/minutes/transcripts/documents stored in Rimo, or invokes `rimo` directly.
+description: Use the `rimo` CLI to interact with the Rimo platform — list/read/search meeting notes, transcripts, and documents, ask AI questions across them, and create notes or append markdown sections to them. Trigger when the user mentions Rimo, asks about meeting notes/minutes/transcripts/documents stored in Rimo, or invokes `rimo` directly.
 ---
 
 # rimo CLI Skill
 
-This skill teaches AI coding agents (Claude Code, Codex, and others) how to use the [`rimo` command-line tool](https://github.com/rimo/cli) to access [Rimo Voice](https://rimo.app) meeting notes, transcripts, documents, and AI-powered Q&A — all from the terminal.
+This skill teaches AI coding agents (Claude Code, Codex, and others) how to use the [`rimo` command-line tool](https://github.com/rimo/cli) to access [Rimo](https://rimo.app) meeting notes, transcripts, documents, and AI-powered Q&A — all from the terminal.
 
 `rimo` is purpose-built for both humans and AI agents:
 
@@ -199,6 +199,7 @@ Default mode = metadata JSON (backend gets `meta=true`, so it's cheap).
 rimo note get <note_id>                        # metadata JSON
 rimo note get <note_id> --fields id,title      # filter the metadata JSON
 rimo note get <note_id> --transcript           # plain text: "Speaker: content" lines
+rimo note get <note_id> --transcript --timestamps # same, prefixed "[HH:MM:SS] " (elapsed from recording start)
 rimo note get <note_id> --document             # plain text: primary document markdown
 rimo note get <note_id> --full                 # plain text: transcript + document
 rimo note get <note_id> --meeting-chat         # plain text: "[HH:MM] sender: text" Zoom/Meet chat
@@ -211,6 +212,7 @@ Mutually exclusive groups (combining them is rejected with an error):
 - `--list-documents` / `--document-id` ⛔ `--transcript` / `--document` / `--full`
 - `--list-documents` ⛔ `--document-id`
 - `--meeting-chat` ⛔ `--transcript` / `--document` / `--full` / `--list-documents` / `--document-id`
+- `--timestamps` requires `--transcript` or `--full` (it decorates transcript lines only, and applies to the transcript half of `--full`)
 
 When the user asks "summarize this Rimo note", the cheapest correct flow is usually:
 
@@ -246,7 +248,7 @@ Flags:
 | `--since`        | filter   | Only notes held on or after this date (`YYYY-MM-DD` as JST, or RFC3339). |
 | `--until`        | filter   | Only notes held before this date (same formats as `--since`).           |
 
-In `--mode=filter` the query argument is optional — omit it to browse by filters alone. Passing a filter-only flag with `--mode=semantic` is rejected with an error. Filter mode populates `snippet`, `channel_id`, `owner_name`, `held_at`, `created_at` on each hit; semantic mode returns only `id` and `title` per hit (the semantic backend exposes less metadata). A `Fetch a note:` hint is written to **stderr** so stdout stays pipe-clean for `| jq`.
+In `--mode=filter` the query argument is optional — omit it to browse by filters alone. Passing a filter-only flag with `--mode=semantic` is rejected with an error. A hit carries `id` plus whatever the search index returned: both modes populate `title`, `held_at`, `created_at`, and filter mode adds `owner_name` and `snippet`. In `--mode=filter` `total_count` counts the whole result set, not just this page; in `--mode=semantic` it is the number of notes returned. A `Fetch a note:` hint is written to **stderr** so stdout stays pipe-clean for `| jq`.
 
 ### `rimo note ask`
 
@@ -326,10 +328,12 @@ Plain text. `rimo upgrade` downloads the latest release over HTTPS and verifies 
 rimo team list                                     # all teams in your org
 rimo team list --page-size 20 --page-token "<cursor>"
 rimo team list --fields id,name                    # smaller payload
+rimo team list --include-organization              # also the org's own folder
 ```
 
 - Cursor-paginated via `--page-size` / `--page-token`.
 - Response shape: `{ "teams": [...], "next_page_token": "..." }`. Loop until `next_page_token` is empty when you need all teams.
+- `--include-organization` also returns the organization's own folder — a real folder whose `id` is the organization's id. It is left out by default, and `category` (`team` or `organization`) tells the two apart. It is added to the **first page only**, so that page carries one row more than `--page-size`.
 - Requires an org account — returns an empty list or 403 for personal workspace tokens.
 
 ### Support under development
@@ -350,12 +354,20 @@ The following commands are planned but not yet available — support is under ac
 | `--excludes` | Drop noisy fields (e.g. `transcript,document_markdown`) — applied after `--fields` |
 | `--dry-run`  | Simulate a write (`note create`, `note append`) — returns a mocked response, sends no request |
 | `--account`  | Override default account                                                  |
+| `--pretty`   | Human-readable tables instead of JSON — **for people, not for you**; see below |
 
 ```bash
 rimo note list --fields compact
 rimo note list --fields id,title,created_at
 rimo note list --excludes transcript,document_markdown
 ```
+
+**Do not pass `--pretty` when you are the one reading the output.** It renders a
+terminal table sized to the current window, which means values get truncated to
+fit and the layout is not a stable contract. Parse the JSON instead, and narrow
+it with `--fields`. Suggest `--pretty` only when the user says they want to read
+the result themselves — e.g. "just show me my meetings this week" — and then
+give them the command to run rather than running it and relaying the table.
 
 ## 7. Recipes
 

@@ -15,7 +15,7 @@ Rimo を **ChatGPT** につなぐと、チャットの中でそのまま自分�
 https://mcp.rimo.app/mcp
 ```
 
-> Claude または Microsoft Copilot をお使いですか? [Claude で Rimo を使う](rimo-in-claude.md) または [Microsoft Copilot で Rimo を使う](rimo-in-microsoft.md) を参照してください。自分のマシンのコーディングツール（Claude Code、Cursor、Codex）の場合は [コーディングツールで使う](setup-guide.md) を参照してください。
+> Claude、Gemini、Microsoft Copilot をお使いですか? [Claude で Rimo を使う](rimo-in-claude.md)、[Gemini で Rimo を使う](rimo-in-gemini.md)、[Microsoft Copilot で Rimo を使う](rimo-in-microsoft.md) を参照してください。自分のマシンのコーディングツール（Claude Code、Cursor、Codex）の場合は [コーディングツールで使う](setup-guide.md) を参照してください。
 
 ---
 
@@ -57,7 +57,7 @@ Rimo のパスワードやキーを ChatGPT に入力することはありませ
 
 3. **新規アプリ（New App）** ダイアログに入力します。
    - **名前（Name）:** `Rimo`
-   - **説明（Description）:** `Rimo Voice — ミーティングノート・文字起こし・ドキュメントの一覧・閲覧・検索・質問ができます。`
+   - **説明（Description）:** `Rimo — ミーティングノート・文字起こし・ドキュメントの一覧・閲覧・検索・質問ができます。`
    - **接続（Connection）:** **サーバー URL（Server URL）** のまま `https://mcp.rimo.app/mcp` を入力します
    - **認証（Authentication）:** **OAuth**（**詳細 OAuth 設定（Advanced OAuth settings）** はそのままで構いません）
    - **理解した上で続行する（I understand and want to continue）** にチェックを入れます。
@@ -170,5 +170,6 @@ Rimo は、**あなた自身が Rimo で閲覧権限があるもの** しか Cha
 ## 関連ページ
 
 - [Claude で Rimo を使う](rimo-in-claude.md) — Claude 向けの同じ手順
+- [Gemini で Rimo を使う](rimo-in-gemini.md) — Gemini Spark 向けの同じ手順
 - [Microsoft Copilot で Rimo を使う](rimo-in-microsoft.md) — DCR で Copilot Studio エージェントに接続する
 - [認証](authentication.md) — Rimo のサインインとアカウントの仕組み

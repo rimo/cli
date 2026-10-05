@@ -7,9 +7,14 @@
 [出力とエラー](output-and-errors.md) を参照してください。
 
 **出力の取り決め。** すべてのコマンドはデフォルトで stdout に JSON を出力します。
+人間が読みやすい表形式が欲しい場合は `--pretty` を付けてください。
 一部の人間向けコマンドは成功時にプレーンテキストを出力します（エラーは常に JSON）:
 `rimo version`、`rimo upgrade`、`rimo note ask`、および `--transcript` /
 `--document` / `--full` / `--meeting-chat` / `--document-id` を指定した `rimo note get`。
+
+以下の例は各レスポンスの形状を示すものです。すべてのフィールドについて型・説明・
+必ず含まれるかどうかを確認するには
+[レスポンスリファレンス](responses.md) を参照してください。
 
 **グローバルフラグ**（すべてのコマンドに適用）:
 
@@ -19,6 +24,7 @@
 | `--fields` | 含めるフィールド: `""` (すべて)、`"compact"`、または `"f1,f2"` |
 | `--excludes` | 出力から除外するフィールド（カンマ区切り） |
 | `--dry-run` | 副作用なしでコマンドをシミュレーション（書き込み系のみ） |
+| `--pretty` | JSON の代わりに人間が読みやすい表形式で出力 — [出力とエラー](output-and-errors.md#人間向け出力---pretty) を参照 |
 
 ---
 
@@ -84,6 +90,8 @@ rimo auth login
 }
 ```
 
+フィールドの詳細: [ログインと切り替えの結果](responses.md#login-and-switch-result)。
+
 ---
 
 ### `rimo auth logout`
@@ -119,6 +127,8 @@ rimo auth logout [--account <alias|email|org>]
 }
 ```
 
+フィールドの詳細: [ログアウト結果](responses.md#logout-result)。
+
 ---
 
 ### `rimo auth status`
@@ -152,6 +162,12 @@ rimo auth status
 `token_status` の値: `valid`、`expiring_soon`、`expired`、`unknown`
 （トークンの有効期限を判定できなかった）。
 
+`RIMO_API_KEY` または `RIMO_TOKEN` が設定されている場合は、`active_credential`
+（API キーの場合はあわせて `api_key_hint`）も返り、`active_account` ではなく環境変数が
+リクエストを認証していることを示します。
+
+フィールドの詳細: [認証ステータス](responses.md#auth-status)。
+
 ---
 
 ### `rimo auth switch`
@@ -184,7 +200,7 @@ rimo auth switch <alias|email|org-name> [--org <org-name>]
 rimo auth switch alice-rimo-personal                       # 完全なエイリアス
 rimo auth switch alice@rimo.app                            # メールで指定（複数組織の場合はエラー）
 rimo auth switch "Client A"                                # 組織名で指定
-rimo auth switch alice@rimo.app --org "Rimo Engineering"   # メール + 組織で曖昧さを解消
+rimo auth switch alice@rimo.app --org "Client B"           # メール + 組織で曖昧さを解消
 ```
 
 **出力（stdout, JSON）**
@@ -198,6 +214,8 @@ rimo auth switch alice@rimo.app --org "Rimo Engineering"   # メール + 組織�
   "org": "Client A"
 }
 ```
+
+フィールドの詳細: [ログインと切り替えの結果](responses.md#login-and-switch-result)。
 
 ---
 
@@ -283,15 +301,26 @@ rimo note list --team J9yyjDQLJWqhiSTH0sAT --updated-since 2026-06-08
 {
   "notes": [
     {
-      "id": "note_abc123",
+      "id": "ZJ7Rk5pSFXgBj2l4iQBV",
       "title": "Weekly sync",
-      "created_at": "2026-05-12T08:30:00Z",
-      "owner": { "email": "alice@rimo.app" }
+      "state": "ASR_DONE",
+      "duration": 584140,
+      "locale": "ja-JP",
+      "media_type": "audio",
+      "held_at": "2026-05-12T09:00:00+09:00",
+      "team_id": "J9yyjDQLJWqhiSTH0sAT",
+      "share_mode": "nothing",
+      "created_at": "2026-05-12T08:30:00+09:00",
+      "updated_at": "2026-05-12T10:02:11+09:00"
     }
   ],
-  "next_page_token": "..."
+  "next_page_token": "eyJpZCI6..."
 }
 ```
+
+メタデータのみです。`note list` は文字起こし・ドキュメントの Markdown・タグ・
+参加者を返しません。それらが必要な場合は [`rimo note get`](#rimo-note-get) にコンテンツ系
+フラグを付けてください。フィールドの詳細: [Note](responses.md#note)。
 
 ---
 
@@ -312,9 +341,10 @@ rimo note get <note_id> [flags]
 | `--transcript` | 文字起こしを `Speaker: content` 形式のプレーンテキストで出力。 |
 | `--document` | メインのドキュメントを Markdown のプレーンテキストで出力。 |
 | `--full` | 文字起こしに続けてメインのドキュメントを出力。 |
-| `--meeting-chat` | ウェブ会議のチャット（Recall 経由で取得した Zoom / Meet のチャット）を `[HH:MM] sender: text` 形式のプレーンテキストで出力。 |
+| `--meeting-chat` | ウェブ会議（Zoom / Meet）のチャットを `[HH:MM] sender: text` 形式のプレーンテキストで出力。 |
 | `--list-documents` | ノートに添付されたドキュメントを一覧表示（JSON）。 |
 | `--document-id <id>` | ID で指定したドキュメントの Markdown を出力。 |
+| `--timestamps` | `--transcript` / `--full` と併用し、文字起こしの各行に `[HH:MM:SS]` を付与。 |
 
 **注意点**
 
@@ -324,6 +354,12 @@ rimo note get <note_id> [flags]
 - `--meeting-chat` は単独の出力で、`--transcript` / `--document` / `--full` /
   `--list-documents` / `--document-id` と併用できません。
 
+- `--timestamps` は `--transcript` / `--full` との併用が必須で、それ以外の組み合わせは
+  エラーになります。指定しない場合、文字起こしの出力はこれまでと変わりません。
+
+- `--timestamps` が表示するのは**録音開始からの経過時間**です（`[00:00:11]` は開始 11 秒後）。
+  `--meeting-chat` の `[HH:MM]` はメッセージの送信時刻（実時刻）であり、意味が異なります。
+
 - 各フラグ（`--transcript`、`--document`、`--full`、`--meeting-chat`、`--document-id`）は stdout に 
 JSON ではなく、プレーンテキストを出力します。
 
@@ -332,6 +368,7 @@ JSON ではなく、プレーンテキストを出力します。
 ```bash
 rimo note get note_abc123                          # メタデータ JSON
 rimo note get note_abc123 --transcript             # プレーンテキストの文字起こし
+rimo note get note_abc123 --transcript --timestamps # [HH:MM:SS] 付きの文字起こし
 rimo note get note_abc123 --document               # 主ドキュメントの Markdown
 rimo note get note_abc123 --full                    # 文字起こし + ドキュメント
 rimo note get note_abc123 --meeting-chat           # Zoom/Meet チャットのプレーンテキスト
@@ -339,6 +376,61 @@ rimo note get note_abc123 --list-documents         # ドキュメントの JSON 
 rimo note get note_abc123 --document-id doc_xyz    # 特定ドキュメントの Markdown
 rimo note get note_abc123 --fields id,title        # JSON メタデータをフィルタ
 ```
+
+**出力 — デフォルト（stdout, JSON）**
+
+ノートのメタデータを `note` エンベロープで包んで返します。
+
+```json
+{
+  "note": {
+    "id": "ZJ7Rk5pSFXgBj2l4iQBV",
+    "title": "Weekly sync",
+    "state": "ASR_DONE",
+    "duration": 584140,
+    "locale": "ja-JP",
+    "media_type": "audio",
+    "held_at": "2026-05-12T09:00:00+09:00",
+    "team_id": "J9yyjDQLJWqhiSTH0sAT",
+    "share_mode": "nothing",
+    "created_at": "2026-05-12T08:30:00+09:00",
+    "updated_at": "2026-05-12T10:02:11+09:00"
+  }
+}
+```
+
+フィールドの詳細: [Note](responses.md#note)。
+
+**出力 — `--list-documents`（stdout, JSON）**
+
+```json
+{
+  "documents": [
+    {
+      "id": "v9HNqz6bntLRm9BBaBEM",
+      "note_id": "ZJ7Rk5pSFXgBj2l4iQBV",
+      "title": "Weekly sync",
+      "primary": true,
+      "locale": "ja-JP",
+      "category": "agenda",
+      "template_mode": "minutes",
+      "export_markdown": "## 決定事項\n\n- ...",
+      "created_at": "2026-05-12T08:30:00+09:00",
+      "updated_at": "2026-05-12T10:02:11+09:00"
+    }
+  ]
+}
+```
+
+すべてのドキュメントの `export_markdown` が丸ごと含まれるため、レスポンスはノートの
+コンテンツ量に比例して大きくなります。ID とタイトルだけが必要なときは
+`--excludes export_markdown` を付けてください。フィールドの詳細:
+[Document](responses.md#document)。
+
+**出力 — コンテンツ系フラグ（stdout, プレーンテキスト）**
+
+これらのフラグは JSON ではなくテキストを出力します。それぞれの正確な形式は
+[Note content](responses.md#note-content) を参照してください。
 
 **エラー**
 
@@ -376,24 +468,39 @@ rimo note search [query] [--mode=semantic|filter] [flags]
 | `--since` | `--mode=filter` 専用。この日時以降に開催されたノートのみ。`YYYY-MM-DD`（JST として解釈）または RFC3339 タイムスタンプ。 |
 | `--until` | `--mode=filter` 専用。この日時より前に開催されたノートのみ。`--since` と同じ形式。 |
 
-**出力**
+**出力（stdout, JSON）**
 
 stdout に JSON `{notes: [...], total_count: <int>}` を出力します。`Fetch a note:` の
-ヒントは **stderr** に出力されるため、stdout は `| jq` 向けにパイプがクリーンなまま
-保たれます。
+ヒント（フィルターモードではさらにページ情報と次ページ用のコマンド）は **stderr** に
+出力されるため、stdout は `| jq` 向けにパイプがクリーンなまま保たれます。
 
 ```json
 {
   "notes": [
-    { "id": "wn9K...", "title": "Release plan: Q3 launch", "owner_name": "Alice Smith", "held_at": "2026-04-28T09:21:00Z" }
+    {
+      "id": "wn9K36p46RKJKaktjDvA",
+      "title": "Release plan: Q3 launch",
+      "owner_name": "Alice Smith",
+      "held_at": "2026-04-28T09:21:00Z",
+      "created_at": "2026-04-28T09:21:00Z",
+      "snippet": {
+        "transcripts": ["... the <em>release plan</em> for Q3 ..."],
+        "headings": [],
+        "annotations": [],
+        "document_markdowns": []
+      }
+    }
   ],
   "total_count": 12
 }
 ```
 
-フィルターモードは各結果に `snippet`、`channel_id`、`owner_name`、`held_at`、
-`created_at` を含みます。セマンティックモードは結果ごとのメタデータが少ないため
-`id` と `title` のみを含みます。
+検索ヒットは完全なノートではなく、`id` に加えて検索インデックスが返した内容だけを
+持ちます。`title`、`held_at`、`created_at` は取得できた場合に両モードで返り、
+`owner_name` と `snippet` は `--mode=filter` のみです。`total_count` は
+`--mode=filter` では現在のページではなく結果全体の件数、`--mode=semantic` では
+返却されたノート数です。フィールドの詳細:
+[Search result](responses.md#search-result)。
 
 **例**
 
@@ -443,7 +550,8 @@ Fetch a note:
 ```
 
 回答はモデルが生成するにつれてストリーミングされます。`Sources:` ブロックが正式な
-引用元の表示です。
+引用元の表示です。3 つのブロックはいずれも stdout に出力されます。
+[ask の回答](responses.md#ask-answer) を参照してください。
 
 **使い分け**
 
@@ -514,6 +622,10 @@ rimo note create --title "ブログ下書き" --fields id         # 新しい ID
 `rimo note append` はノート ID と**ドキュメント ID の両方**を取るので、両方を
 保持しておいてください。
 
+フィールドの詳細: [Note](responses.md#note) と [Document](responses.md#document)。
+`--dry-run` を付けた場合は、プレースホルダーの例に `"dry_run": true` を加えたものが
+返ります。[ドライランの出力](responses.md#dry-run-output) を参照してください。
+
 **エラー**
 
 リクエストボディが不正、`locale` が非対応、無効化されたチャンネルへの作成は `400`、
@@ -570,6 +682,9 @@ rimo note append note_abc123 doc_xyz789 "## メモ" --dry-run
 ```
 
 `export_markdown` は取り込み後のドキュメントを反映するので、反映内容を確認できます。
+フィールドの詳細: [Document](responses.md#document)。
+`--dry-run` を付けた場合は、プレースホルダーの例に `"dry_run": true` を加えたものが
+返り、実際の取り込み結果は分かりません。[ドライランの出力](responses.md#dry-run-output) を参照してください。
 
 **エラー**
 
@@ -590,7 +705,7 @@ rimo note append note_abc123 doc_xyz789 "## メモ" --dry-run
 **構文**
 
 ```
-rimo team list [--page-size <int>] [--page-token <string>]
+rimo team list [--page-size <int>] [--page-token <string>] [--include-organization]
 ```
 
 **フラグ**
@@ -599,6 +714,7 @@ rimo team list [--page-size <int>] [--page-token <string>]
 |------|------|---------|-------------|
 | `--page-size` | int | `0` | ページサイズ（`0` の場合はサーバー側のデフォルト（現在 20）に従う） |
 | `--page-token` | string | `""` | 前回の呼び出しの `next_page_token` から取得したカーソル |
+| `--include-organization` | bool | `false` | 組織自身のフォルダも返す（下記参照） |
 
 **例**
 
@@ -607,6 +723,7 @@ rimo team list
 rimo team list --page-size 5
 rimo team list --page-size 5 --page-token "eyJpZCI6..."
 rimo team list --fields id,name
+rimo team list --include-organization
 ```
 
 **出力（stdout, JSON）**
@@ -614,12 +731,33 @@ rimo team list --fields id,name
 ```json
 {
   "teams": [
-    { "id": "team_abc123", "name": "Engineering" },
-    { "id": "team_def456", "name": "Design" }
+    {
+      "id": "04EFtBS4DT4pWnZV7jBU",
+      "name": "Engineering",
+      "category": "team",
+      "is_private_channel": false,
+      "member_ids": ["1F9ikNPMAMZXiVNyujFPIDKJujW2", "AZ2zlcmEGKMeD30Fn4tAiuzd3U63"],
+      "parent_id": "Dt788f7DnXb6azxNJMcO",
+      "created_at": "2023-11-09T04:49:09.50961Z",
+      "updated_at": "2024-06-24T01:53:51.906584Z"
+    }
   ],
-  "next_page_token": "..."
+  "next_page_token": "eyJpZCI6..."
 }
 ```
+
+チームの `name` は Rimo アプリ上で見えるフォルダ名です。フィールドの詳細:
+[Team](responses.md#team)。
+
+**組織自身のフォルダ**
+
+組織にはチームフォルダとは別に、組織自身のフォルダがあります。他のフォルダと同じく
+ノートが保存され、その `id` は組織の ID です。既定では一覧に含まれません。
+`--include-organization` を指定すると返り、`"category": "organization"` で
+チームフォルダと区別できます。
+
+含まれるのは**最初のページのみ**です。そのページだけ `--page-size` より 1 件多くなり、
+2 ページ目以降は変わりません。
 
 ---
 
@@ -640,6 +778,26 @@ rimo version
 ```
 rimo version 1.0.0
 ```
+
+---
+
+### `rimo mcp`
+
+Rimo の MCP サーバーを stdio で起動します。これにより MCP クライアント（Claude Code、
+Cursor、Claude Desktop など）が、シェルコマンドではなくツール経由でノートを読めます。
+
+**構文**
+
+```
+rimo mcp
+```
+
+**出力**
+
+ありません。これは stdin/stdout で Model Context Protocol を話す常駐サーバーであり、
+データを返すコマンドではありません。手動で実行せず、MCP クライアント側で設定して
+ください。[MCP でできること](mcp.md) と
+[コーディングツールで使う](setup-guide.md) を参照してください。
 
 ---
 

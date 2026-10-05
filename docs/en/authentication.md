@@ -2,7 +2,7 @@
 
 [English](../en/authentication.md) | [日本語](../ja/authentication.md)
 
-`rimo` authenticates with Rimo Voice through a browser-based login. Tokens are
+`rimo` authenticates with Rimo through a browser-based login. Tokens are
 stored securely by your OS credential store, never in a text file.
 
 For automation where no one can open a browser — CI/CD pipelines, scripts,

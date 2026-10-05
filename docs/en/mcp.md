@@ -6,7 +6,7 @@ Rimo's **MCP** connection lets an AI assistant look things up in your Rimo meeti
 
 There are two ways to connect, and **what you can ask is the same for both**:
 
-- **In a web assistant — Claude, ChatGPT, or Microsoft Copilot.** Nothing to install. You add Rimo once and sign in through your browser. See [Rimo in Claude](rimo-in-claude.md), [Rimo in ChatGPT](rimo-in-chatgpt.md), or [Rimo in Microsoft Copilot](rimo-in-microsoft.md).
+- **In a web assistant — Claude, ChatGPT, Gemini, or Microsoft Copilot.** Nothing to install. You add Rimo once and sign in through your browser. See [Rimo in Claude](rimo-in-claude.md), [Rimo in ChatGPT](rimo-in-chatgpt.md), [Rimo in Gemini](rimo-in-gemini.md), or [Rimo in Microsoft Copilot](rimo-in-microsoft.md).
 - **In a coding tool on your computer — Claude Code, Codex CLI, Cursor, or Claude Desktop.** A one-time setup connects Rimo. See [Rimo in Coding Tools](setup-guide.md).
 
 This page is about *what you can do* once connected. For *how to connect*, follow one of the links above.
@@ -88,6 +88,6 @@ The connection exposes these typed tools:
 
 ## See also
 
-- [Rimo in Claude](rimo-in-claude.md) / [Rimo in ChatGPT](rimo-in-chatgpt.md) / [Rimo in Microsoft Copilot](rimo-in-microsoft.md) — connect in a web assistant; nothing to install
+- [Rimo in Claude](rimo-in-claude.md) / [Rimo in ChatGPT](rimo-in-chatgpt.md) / [Rimo in Gemini](rimo-in-gemini.md) / [Rimo in Microsoft Copilot](rimo-in-microsoft.md) — connect in a web assistant; nothing to install
 - [Rimo in Coding Tools](setup-guide.md) — connect in a coding tool on your machine (Claude Code, Codex CLI, Cursor, Claude Desktop)
 - [Authentication](authentication.md) — login flows, token storage, multi-account

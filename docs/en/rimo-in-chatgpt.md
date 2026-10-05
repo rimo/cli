@@ -15,7 +15,7 @@ There is **nothing to install**. You add one link in ChatGPT, sign in with your 
 https://mcp.rimo.app/mcp
 ```
 
-> Using Claude or Microsoft Copilot instead? See [Rimo in Claude](rimo-in-claude.md) or [Rimo in Microsoft Copilot](rimo-in-microsoft.md). On your own machine with a coding tool (Claude Code, Cursor, Codex)? See [Rimo in Coding Tools](setup-guide.md).
+> Using Claude, Gemini, or Microsoft Copilot instead? See [Rimo in Claude](rimo-in-claude.md), [Rimo in Gemini](rimo-in-gemini.md), or [Rimo in Microsoft Copilot](rimo-in-microsoft.md). On your own machine with a coding tool (Claude Code, Cursor, Codex)? See [Rimo in Coding Tools](setup-guide.md).
 
 ---
 
@@ -55,7 +55,7 @@ Custom MCP plugins live behind **Developer mode**, so it must stay **on** — if
 
 3. In the **New App** dialog, fill in:
    - **Name:** `Rimo`
-   - **Description:** `Rimo Voice — list, read, search, and ask across your meeting notes, transcripts, and documents.`
+   - **Description:** `Rimo — list, read, search, and ask across your meeting notes, transcripts, and documents.`
    - **Connection:** keep **Server URL** and enter `https://mcp.rimo.app/mcp`
    - **Authentication:** **OAuth** (you can leave **Advanced OAuth settings** as they are)
    - Tick **I understand and want to continue**.
@@ -162,5 +162,6 @@ Rimo only ever shows ChatGPT what **you** can see in Rimo.
 ## See also
 
 - [Rimo in Claude](rimo-in-claude.md) — the same thing for Claude
+- [Rimo in Gemini](rimo-in-gemini.md) — the same thing for Gemini Spark
 - [Rimo in Microsoft Copilot](rimo-in-microsoft.md) — connect through a Copilot Studio agent using DCR
 - [Authentication](authentication.md) — how Rimo sign-in and accounts work

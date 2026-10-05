@@ -17,7 +17,7 @@ https://claude.ai/directory/connectors/rimo-voice
 
 以下の手順は、ブラウザの **claude.ai** でも **Claude デスクトップアプリ** でも同じです。コネクタは Claude アカウントに紐づくため、一度設定すればどちらでも使えます。
 
-> ChatGPT または Microsoft Copilot をお使いですか? [ChatGPT で Rimo を使う](rimo-in-chatgpt.md) または [Microsoft Copilot で Rimo を使う](rimo-in-microsoft.md) を参照してください。自分のマシンのコーディングツール（Claude Code、Cursor、Codex）の場合は [コーディングツールで使う](setup-guide.md) を参照してください。
+> ChatGPT、Gemini、Microsoft Copilot をお使いですか? [ChatGPT で Rimo を使う](rimo-in-chatgpt.md)、[Gemini で Rimo を使う](rimo-in-gemini.md)、[Microsoft Copilot で Rimo を使う](rimo-in-microsoft.md) を参照してください。自分のマシンのコーディングツール（Claude Code、Cursor、Codex）の場合は [コーディングツールで使う](setup-guide.md) を参照してください。
 
 ---
 
@@ -169,5 +169,6 @@ Rimo は、**あなた自身が Rimo で閲覧権限があるもの** しか Cla
 ## 関連ページ
 
 - [ChatGPT で Rimo を使う](rimo-in-chatgpt.md) — ChatGPT 向けの同じ手順
+- [Gemini で Rimo を使う](rimo-in-gemini.md) — Gemini Spark 向けの同じ手順
 - [Microsoft Copilot で Rimo を使う](rimo-in-microsoft.md) — DCR で Copilot Studio エージェントに接続する
 - [認証](authentication.md) — Rimo のサインインとアカウントの仕組み

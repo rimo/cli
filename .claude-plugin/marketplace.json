@@ -9,7 +9,7 @@
     {
       "name": "rimo",
       "source": "./",
-      "description": "Rimo Voice integration for Claude Code — ships the rimo-cli skill for driving the `rimo` CLI."
+      "description": "Rimo integration for Claude Code — ships the rimo-cli skill for driving the `rimo` CLI."
     }
   ]
 }

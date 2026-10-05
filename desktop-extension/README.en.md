@@ -9,8 +9,8 @@ without editing `claude_desktop_config.json` by hand.
 | File | Role |
 |------|------|
 | `manifest.json` | Extension metadata + MCP server launch definition. **Single source of truth for the extension `version`.** |
-| `icons/icon.png` | Extension icon shown in Claude Desktop (the Rimo brand mark, from the `rimo` GitHub org avatar). |
-| `icons/icon-16.png`, `icons/icon-32.png`, `icons/icon-128.png` | Small variants (downscaled from `icons/icon.png` via `sips`), listed in the manifest `icons` array so compact UI surfaces (e.g. the connectors menu) can pick an exact size. Claude Desktop still shows a letter avatar in some menus for local extensions — upstream [mcpb#154](https://github.com/modelcontextprotocol/mcpb/issues/154). |
+| `icons/icon.png` | Extension icon shown in Claude Desktop (the Rimo product mark). |
+| `icons/icon-16.png`, `icons/icon-32.png`, `icons/icon-128.png` | Small variants (downscaled via `sips`), listed in the manifest `icons` array so compact UI surfaces (e.g. the connectors menu) can pick an exact size. Claude Desktop still shows a letter avatar in some menus for local extensions — upstream [mcpb#154](https://github.com/modelcontextprotocol/mcpb/issues/154). |
 | `server/` | **Gitignored build output** — the bundled `rimo` binaries staged here right before packing (`make mcpb-server-binaries` locally; the release workflow copies the signed goreleaser outputs). |
 | `.mcpbignore` | Files kept out of the packed bundle. |
 

@@ -3,6 +3,28 @@
 All notable changes to the Rimo CLI are documented here. This project follows
 [Semantic Versioning](https://semver.org/).
 
+## v1.3.1
+
+### Added
+
+- `--pretty` — show results as human-readable tables (lists) or aligned key/value blocks (single records) instead of JSON. JSON stays the default. IDs are never shortened, so you can still copy them into the next command.
+- `rimo note get --timestamps` — prefix each transcript line with `[HH:MM:SS]`, the time elapsed from the start of the recording. Works with `--transcript` and `--full`.
+- `rimo mcp` `note_read` — a new optional `timestamps` parameter adds the same `[HH:MM:SS]` prefix to transcript lines.
+- `rimo team list --include-organization` — also return your organization's own folder. Its `category` tells it apart from teams.
+- New guides for using Rimo in Gemini, Genspark, Notion, and Slack, and a response reference describing the output of every command.
+
+### Changed
+
+- Rimo Voice is now Rimo. The CLI help, the MCP server name, and the Claude Desktop extension and Claude Code plugin descriptions use the new name.
+- `rimo` and `rimo --help` show a new banner based on the new Rimo logo.
+- The Claude Desktop extension uses the new Rimo logo as its icon.
+- `rimo mcp` now explicitly marks every tool as read-only and non-destructive, so MCP clients can apply settings such as "always allow read-only tools" correctly.
+- The Claude Code plugin's bundled skill now covers `--pretty`, `--timestamps`, and `--include-organization` — run `/plugin update rimo` to pick it up.
+
+### Fixed
+
+- The Claude Desktop extension now lists the `note_read` tool. It was already available but missing from the extension's tool list.
+
 ## v1.3.0
 
 ### Added
