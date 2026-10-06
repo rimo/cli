@@ -17,7 +17,7 @@ https://claude.ai/directory/connectors/rimo-voice
 
 The steps below are the same on **claude.ai** in the browser and in the **Claude desktop app** — the connector belongs to your Claude account, so you set it up once and it works in both.
 
-> Using ChatGPT or Microsoft Copilot instead? See [Rimo in ChatGPT](rimo-in-chatgpt.md) or [Rimo in Microsoft Copilot](rimo-in-microsoft.md). On your own machine with a coding tool (Claude Code, Cursor, Codex)? See [Rimo in Coding Tools](setup-guide.md).
+> Using ChatGPT, Gemini, or Microsoft Copilot instead? See [Rimo in ChatGPT](rimo-in-chatgpt.md), [Rimo in Gemini](rimo-in-gemini.md), or [Rimo in Microsoft Copilot](rimo-in-microsoft.md). On your own machine with a coding tool (Claude Code, Cursor, Codex)? See [Rimo in Coding Tools](setup-guide.md).
 
 ---
 
@@ -169,5 +169,6 @@ Rimo only ever shows Claude what **you** can see in Rimo.
 ## See also
 
 - [Rimo in ChatGPT](rimo-in-chatgpt.md) — the same thing for ChatGPT
+- [Rimo in Gemini](rimo-in-gemini.md) — the same thing for Gemini Spark
 - [Rimo in Microsoft Copilot](rimo-in-microsoft.md) — connect through a Copilot Studio agent using DCR
 - [Authentication](authentication.md) — how Rimo sign-in and accounts work

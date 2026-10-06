@@ -6,10 +6,15 @@ Complete reference for every `rimo` command. For installation see
 [Installation](installation.md); for the output contract and error format see
 [Output & errors](output-and-errors.md).
 
-**Output contract.** All commands print JSON to stdout by default. A few
+**Output contract.** All commands print JSON to stdout by default; add `--pretty`
+for a human-readable table. A few
 human-facing commands print plain text on success (errors are always JSON):
 `rimo version`, `rimo upgrade`, `rimo note ask`, and `rimo note get` with
 `--transcript` / `--document` / `--full` / `--meeting-chat` / `--document-id`.
+
+The examples below show the shape of each response. For every field with its
+type, description, and whether it is always present, see the
+[Response reference](responses.md).
 
 **Global flags** (apply to every command):
 
@@ -19,6 +24,7 @@ human-facing commands print plain text on success (errors are always JSON):
 | `--fields` | Fields to include: `""` (all), `"compact"`, or `"f1,f2"` |
 | `--excludes` | Comma-separated fields to exclude from output |
 | `--dry-run` | Simulate the command without side effects (writes only) |
+| `--pretty` | Human-readable tables instead of JSON — see [Output & errors](output-and-errors.md#human-readable-output---pretty) |
 
 ---
 
@@ -84,6 +90,8 @@ refreshes the metadata.
 }
 ```
 
+Field reference: [Login and switch result](responses.md#login-and-switch-result).
+
 ---
 
 ### `rimo auth logout`
@@ -119,6 +127,8 @@ one with `--account`.
 }
 ```
 
+Field reference: [Logout result](responses.md#logout-result).
+
 ---
 
 ### `rimo auth status`
@@ -152,6 +162,12 @@ rimo auth status
 `token_status` values: `valid`, `expiring_soon`, `expired`, `unknown` (token expiry
 could not be determined).
 
+When `RIMO_API_KEY` or `RIMO_TOKEN` is set, the response also carries
+`active_credential` (and `api_key_hint` for an API key) to show that the
+environment variable — not `active_account` — is what authenticates requests.
+
+Field reference: [Auth status](responses.md#auth-status).
+
 ---
 
 ### `rimo auth switch`
@@ -184,7 +200,7 @@ Also available as `rimo auth use`.
 rimo auth switch alice-rimo-personal                       # exact alias
 rimo auth switch alice@rimo.app                            # by email (errors if multiple orgs)
 rimo auth switch "Client A"                                # by org name
-rimo auth switch alice@rimo.app --org "Rimo Engineering"   # email + org disambiguation
+rimo auth switch alice@rimo.app --org "Client B"           # email + org disambiguation
 ```
 
 **Output (stdout, JSON)**
@@ -198,6 +214,8 @@ rimo auth switch alice@rimo.app --org "Rimo Engineering"   # email + org disambi
   "org": "Client A"
 }
 ```
+
+Field reference: [Login and switch result](responses.md#login-and-switch-result).
 
 ---
 
@@ -287,15 +305,26 @@ rimo note list --team J9yyjDQLJWqhiSTH0sAT --updated-since 2026-06-08
 {
   "notes": [
     {
-      "id": "note_abc123",
+      "id": "ZJ7Rk5pSFXgBj2l4iQBV",
       "title": "Weekly sync",
-      "created_at": "2026-05-12T08:30:00Z",
-      "owner": { "email": "alice@rimo.app" }
+      "state": "ASR_DONE",
+      "duration": 584140,
+      "locale": "ja-JP",
+      "media_type": "audio",
+      "held_at": "2026-05-12T09:00:00+09:00",
+      "team_id": "J9yyjDQLJWqhiSTH0sAT",
+      "share_mode": "nothing",
+      "created_at": "2026-05-12T08:30:00+09:00",
+      "updated_at": "2026-05-12T10:02:11+09:00"
     }
   ],
-  "next_page_token": "..."
+  "next_page_token": "eyJpZCI6..."
 }
 ```
+
+Metadata only — `note list` never returns the transcript, the document markdown,
+the tags, or the participants. Use [`rimo note get`](#rimo-note-get) with a content flag
+for those. Field reference: [Note](responses.md#note).
 
 ---
 
@@ -317,9 +346,10 @@ rimo note get <note_id> [flags]
 | `--transcript` | Print the transcript as plain text in `Speaker: content` form. |
 | `--document` | Print the primary document as markdown plain text. |
 | `--full` | Print transcript followed by the primary document. |
-| `--meeting-chat` | Print the web meeting chat (Zoom/Meet, captured via Recall) as plain text in `[HH:MM] sender: text` form. |
+| `--meeting-chat` | Print the web meeting chat (Zoom/Meet) as plain text in `[HH:MM] sender: text` form. |
 | `--list-documents` | List documents attached to the note (JSON). |
 | `--document-id <id>` | Print a specific document's markdown by ID. |
+| `--timestamps` | With `--transcript` or `--full`, prefix each transcript line with `[HH:MM:SS]`. |
 
 **Notes**
 
@@ -328,6 +358,11 @@ rimo note get <note_id> [flags]
 - `--list-documents` and `--document-id` are mutually exclusive.
 - `--meeting-chat` is its own output and cannot be combined with `--transcript` /
   `--document` / `--full` / `--list-documents` / `--document-id`.
+- `--timestamps` requires `--transcript` or `--full`; any other combination is
+  rejected. Without it, transcript output is unchanged.
+- `--timestamps` shows time **elapsed from the start of the recording**, so
+  `[00:00:11]` is 11 seconds in. This differs from `--meeting-chat`, whose
+  `[HH:MM]` is the message's wall-clock time.
 - The content flags (`--transcript`, `--document`, `--full`, `--meeting-chat`,
   `--document-id`) print plain text to stdout, not JSON.
 
@@ -336,6 +371,7 @@ rimo note get <note_id> [flags]
 ```bash
 rimo note get note_abc123                          # metadata JSON
 rimo note get note_abc123 --transcript             # plain-text transcript
+rimo note get note_abc123 --transcript --timestamps # transcript with [HH:MM:SS]
 rimo note get note_abc123 --document               # primary document markdown
 rimo note get note_abc123 --full                    # transcript + document
 rimo note get note_abc123 --meeting-chat           # plain-text Zoom/Meet chat
@@ -343,6 +379,60 @@ rimo note get note_abc123 --list-documents         # JSON list of documents
 rimo note get note_abc123 --document-id doc_xyz    # specific document markdown
 rimo note get note_abc123 --fields id,title        # filter the JSON metadata
 ```
+
+**Output — default (stdout, JSON)**
+
+The note's metadata, wrapped in a `note` envelope.
+
+```json
+{
+  "note": {
+    "id": "ZJ7Rk5pSFXgBj2l4iQBV",
+    "title": "Weekly sync",
+    "state": "ASR_DONE",
+    "duration": 584140,
+    "locale": "ja-JP",
+    "media_type": "audio",
+    "held_at": "2026-05-12T09:00:00+09:00",
+    "team_id": "J9yyjDQLJWqhiSTH0sAT",
+    "share_mode": "nothing",
+    "created_at": "2026-05-12T08:30:00+09:00",
+    "updated_at": "2026-05-12T10:02:11+09:00"
+  }
+}
+```
+
+Field reference: [Note](responses.md#note).
+
+**Output — `--list-documents` (stdout, JSON)**
+
+```json
+{
+  "documents": [
+    {
+      "id": "v9HNqz6bntLRm9BBaBEM",
+      "note_id": "ZJ7Rk5pSFXgBj2l4iQBV",
+      "title": "Weekly sync",
+      "primary": true,
+      "locale": "ja-JP",
+      "category": "agenda",
+      "template_mode": "minutes",
+      "export_markdown": "## Decisions\n\n- ...",
+      "created_at": "2026-05-12T08:30:00+09:00",
+      "updated_at": "2026-05-12T10:02:11+09:00"
+    }
+  ]
+}
+```
+
+Every document's full `export_markdown` is included, so the response grows with
+the note's content. Add `--excludes export_markdown` when you only need the IDs
+and titles. Field reference: [Document](responses.md#document).
+
+**Output — content flags (stdout, plain text)**
+
+These flags print text, not JSON — see
+[Note content](responses.md#note-content) for the exact form of each.
 
 **Errors**
 
@@ -381,23 +471,39 @@ In `--mode=filter` the `query` is **optional**: omit it to browse by filters alo
 | `--since` | `--mode=filter` only: only notes held on or after this date. `YYYY-MM-DD` (interpreted as JST) or an RFC3339 timestamp. |
 | `--until` | `--mode=filter` only: only notes held before this date. Same formats as `--since`. |
 
-**Output**
+**Output (stdout, JSON)**
 
-JSON `{notes: [...], total_count: <int>}` on stdout. A `Fetch a note:` hint is
+JSON `{notes: [...], total_count: <int>}` on stdout. A `Fetch a note:` hint —
+and, in filter mode, a page footer and a copy-pasteable next-page command — is
 printed to **stderr** so stdout stays pipe-clean for `| jq`.
 
 ```json
 {
   "notes": [
-    { "id": "wn9K...", "title": "Release plan: Q3 launch", "owner_name": "Alice Smith", "held_at": "2026-04-28T09:21:00Z" }
+    {
+      "id": "wn9K36p46RKJKaktjDvA",
+      "title": "Release plan: Q3 launch",
+      "owner_name": "Alice Smith",
+      "held_at": "2026-04-28T09:21:00Z",
+      "created_at": "2026-04-28T09:21:00Z",
+      "snippet": {
+        "transcripts": ["... the <em>release plan</em> for Q3 ..."],
+        "headings": [],
+        "annotations": [],
+        "document_markdowns": []
+      }
+    }
   ],
   "total_count": 12
 }
 ```
 
-Filter mode includes `snippet`, `channel_id`, `owner_name`, `held_at`,
-`created_at` on each result; semantic mode only includes `id` and `title` because
-semantic search returns less metadata per result.
+A search hit is not a full note: it carries `id` plus whatever the search index
+returned. Both modes return `title`, `held_at`, and `created_at` when available;
+only `--mode=filter` adds `owner_name` and `snippet`. In `--mode=filter`,
+`total_count` counts the whole result set rather than the current page; in
+`--mode=semantic` it is the number of notes returned. Field reference:
+[Search result](responses.md#search-result).
 
 **Examples**
 
@@ -447,7 +553,8 @@ Fetch a note:
 ```
 
 The answer streams as the model generates it. The `Sources:` block is the
-canonical citation surface.
+canonical citation surface. All three blocks go to stdout — see
+[Ask answer](responses.md#ask-answer).
 
 **When to use which**
 
@@ -517,6 +624,10 @@ rimo note create --title "Blog draft" --fields id           # just the new IDs
 
 Keep both IDs — `rimo note append` takes the note ID *and* the document ID.
 
+Field reference: [Note](responses.md#note) and [Document](responses.md#document).
+With `--dry-run` the response is a placeholder example plus `"dry_run": true` —
+see [Dry-run output](responses.md#dry-run-output).
+
 **Errors**
 
 `400` for a malformed body, an unsupported `locale`, or a disabled channel; `403`
@@ -573,7 +684,9 @@ rimo note append note_abc123 doc_xyz789 "## Notes" --dry-run
 ```
 
 `export_markdown` reflects the document after the merge, so you can confirm what
-landed.
+landed. Field reference: [Document](responses.md#document).
+With `--dry-run` the response is a placeholder example plus `"dry_run": true`,
+not a preview of your merge — see [Dry-run output](responses.md#dry-run-output).
 
 **Errors**
 
@@ -593,7 +706,7 @@ List teams in your organization. The returned team IDs can be passed to
 **Syntax**
 
 ```
-rimo team list [--page-size <int>] [--page-token <string>]
+rimo team list [--page-size <int>] [--page-token <string>] [--include-organization]
 ```
 
 **Flags**
@@ -602,6 +715,7 @@ rimo team list [--page-size <int>] [--page-token <string>]
 |------|------|---------|-------------|
 | `--page-size` | int | `0` | Page size (`0` lets the server pick the default, currently 20) |
 | `--page-token` | string | `""` | Cursor from a previous call's `next_page_token` |
+| `--include-organization` | bool | `false` | Also return your organization's own folder (see below) |
 
 **Examples**
 
@@ -610,6 +724,7 @@ rimo team list
 rimo team list --page-size 5
 rimo team list --page-size 5 --page-token "eyJpZCI6..."
 rimo team list --fields id,name
+rimo team list --include-organization
 ```
 
 **Output (stdout, JSON)**
@@ -617,12 +732,33 @@ rimo team list --fields id,name
 ```json
 {
   "teams": [
-    { "id": "team_abc123", "name": "Engineering" },
-    { "id": "team_def456", "name": "Design" }
+    {
+      "id": "04EFtBS4DT4pWnZV7jBU",
+      "name": "Engineering",
+      "category": "team",
+      "is_private_channel": false,
+      "member_ids": ["1F9ikNPMAMZXiVNyujFPIDKJujW2", "AZ2zlcmEGKMeD30Fn4tAiuzd3U63"],
+      "parent_id": "Dt788f7DnXb6azxNJMcO",
+      "created_at": "2023-11-09T04:49:09.50961Z",
+      "updated_at": "2024-06-24T01:53:51.906584Z"
+    }
   ],
-  "next_page_token": "..."
+  "next_page_token": "eyJpZCI6..."
 }
 ```
+
+A team's `name` is the folder name you see in the Rimo app. Field reference:
+[Team](responses.md#team).
+
+**Your organization's own folder**
+
+Alongside its team folders, an organization has a folder of its own — notes live
+in it like any other folder, and its `id` is the organization's id. It is left
+out by default; `--include-organization` returns it, with
+`"category": "organization"` to tell it apart from a team folder.
+
+It is added to the **first page only**, so that page carries one row more than
+`--page-size` and later pages are unaffected.
 
 ---
 
@@ -643,6 +779,26 @@ rimo version
 ```
 rimo version 1.0.0
 ```
+
+---
+
+### `rimo mcp`
+
+Run the Rimo MCP server on stdio, so an MCP client (Claude Code, Cursor, Claude
+Desktop, …) can read your notes through tools instead of shell commands.
+
+**Syntax**
+
+```
+rimo mcp
+```
+
+**Output**
+
+None — this is a long-running server that speaks the Model Context Protocol on
+stdin/stdout, not a data command. Do not run it by hand; configure it in your
+MCP client. See [What you can do with MCP](mcp.md) and the
+[Rimo in Coding Tools](setup-guide.md).
 
 ---
 

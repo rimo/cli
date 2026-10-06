@@ -2,7 +2,7 @@
 
 [English](README.en.md) | [日本語](README.md)
 
-`rimo` is the command-line interface for the [Rimo Voice](https://rimo.app) platform. Search, fetch, and ask questions about your meeting notes from the terminal.
+`rimo` is the command-line interface for the [Rimo](https://rimo.app) platform. Search, fetch, and ask questions about your meeting notes from the terminal.
 
 Built for both humans and AI agents (Claude Code, Codex, etc.): every command speaks JSON by default and exposes its behavior through `--help`, so it slots cleanly into scripts and agent workflows.
 
@@ -58,6 +58,7 @@ Full flag-by-flag reference: [Commands](docs/en/commands.md).
 --fields <spec>      Fields to include: "" (all), "compact", or "field1,field2"
 --excludes <list>    Comma-separated fields to exclude from output
 --dry-run            Simulate the command without side effects (writes only)
+--pretty             Human-readable tables instead of JSON (opt-in; JSON stays the default)
 ```
 
 ## Documentation
@@ -67,7 +68,8 @@ Full flag-by-flag reference: [Commands](docs/en/commands.md).
 - [Personal API keys](docs/en/personal-api-keys.md) — create keys in the web app and authenticate with `RIMO_API_KEY` for CI/CD
 - [Commands](docs/en/commands.md) — full reference with flags and examples
 - [Configuration](docs/en/configuration.md) — `config.yaml`, credential storage, environment variables
-- [Output & errors](docs/en/output-and-errors.md) — JSON design, `--fields`/`--excludes`, exit codes
+- [Output & errors](docs/en/output-and-errors.md) — JSON design, `--pretty` tables, `--fields`/`--excludes`, exit codes
+- [Response reference](docs/en/responses.md) — what each command returns, field by field
 - [What you can do with MCP](docs/en/mcp.md) — what an AI assistant can look up and answer from your Rimo notes
 - [Rimo in Coding Tools](docs/en/setup-guide.md) — connect the `rimo` MCP server in Claude Code, Codex CLI, Cursor, and Claude Desktop
 - [Troubleshooting](docs/en/troubleshooting.md) — common install, login, and PATH issues

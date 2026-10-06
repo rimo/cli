@@ -17,7 +17,7 @@ https://mcp.rimo.app/mcp
 
 > **すでに Copilot Studio エージェントをお持ちですか?** 新しく作る必要はありません。**[エージェントに Rimo MCP を追加する](#add-rimo-mcp-to-your-agent)** に直接進み、その後テストと公開に戻ってください。
 
-> Claude または ChatGPT をお使いですか? [Claude で Rimo を使う](rimo-in-claude.md) または [ChatGPT で Rimo を使う](rimo-in-chatgpt.md) を参照してください。
+> Claude、ChatGPT、Gemini をお使いですか? [Claude で Rimo を使う](rimo-in-claude.md)、[ChatGPT で Rimo を使う](rimo-in-chatgpt.md)、[Gemini で Rimo を使う](rimo-in-gemini.md) を参照してください。
 
 ---
 
@@ -41,7 +41,7 @@ Rimo は **ユーザーごとの認証** を使います。各ユーザーは、
 
 1. [Microsoft Copilot Studio](https://copilotstudio.microsoft.com/) にサインインし、使いたい環境を選びます。
 2. **ホーム（Home）** または **エージェント（Agents）** のページで、作りたいものを自分の言葉で説明するか、**空のエージェントを作成（Create blank agent）** を選んで説明を省略します。Copilot Studio がエージェントを準備し、その **概要（Overview）** ページを開きます。
-3. **詳細（Details）** セクションでエージェントの名前を設定します（例: `Rimo Voice`）。**指示（Instructions）** セクションで動作を記述します — 下記の [推奨するエージェントの指示](#recommended-agent-instructions) を参照してください。
+3. **詳細（Details）** セクションでエージェントの名前を設定します（例: `Rimo`）。**指示（Instructions）** セクションで動作を記述します — 下記の [推奨するエージェントの指示](#recommended-agent-instructions) を参照してください。
 4. Copilot Studio はエージェントを **Microsoft Entra ID** 認証用に自動で構成します。オンのままにしてください。
 
 詳しい手順は [エージェントの作成と編集](https://learn.microsoft.com/ja-jp/microsoft-copilot-studio/authoring-first-bot) を参照してください。
@@ -238,6 +238,9 @@ Rimo ツールを追加すると、Power Platform 環境にエージェント作
 
 ### エンドユーザー / アカウント B
 
+> [!IMPORTANT]
+> **サインインのポップアップを許可してください。** **接続（Connect）** を選ぶと、Rimo のサインインがポップアップウィンドウで開きます。ブラウザがブロックした場合は、ブロックされたポップアップを許可すれば Rimo のサインインページが開きます。ブロックしたままだと *「Unable to sign in. Please try again.」* となりサインインできません。
+
 1. エージェントを開き（リンクから、または Microsoft 365 か Teams のエージェントストアで **Rimo Voice** を探して）、**追加（Add）** を選びます。
 
    ![エージェントストアの Rimo Voice のページと「追加（Add）」ボタン](../images/assets/microsoft-store-add.png)
@@ -254,7 +257,8 @@ Rimo ツールを追加すると、Power Platform 環境にエージェント作
 
    ![「Connect to Rimo」ダイアログの作成ボタン](../images/assets/microsoft-enduser-connect-rimo.png)
 
-   > **メモ:** ブラウザがサインインのポップアップをブロックする場合は、このページのポップアップを許可してください。許可しないとサインインを完了できません。
+> [!IMPORTANT]
+> **サインインのポップアップを許可してください。** この手順で Rimo のサインインがポップアップウィンドウで開きます。ブラウザがブロックした場合は、ブロックされたポップアップを許可すれば Rimo のサインインページが開きます。ブロックしたままだと *「Unable to sign in. Please try again.」* となりサインインできません。
 
 5. チャットに戻り、メッセージをもう一度送ります。初回は **許可（Allow）** のカードが表示されることがあります — **許可（Allow）** を選びます。するとエージェントがアカウント B のノートを返します。
 
@@ -312,8 +316,10 @@ Rimo ツールを追加すると、Power Platform 環境にエージェント作
 
 ### 初めて使うとき
 
+> [!IMPORTANT]
+> **サインインのポップアップを許可してください。** **接続（Connect）** を選ぶと、Rimo のサインインがポップアップウィンドウで開きます。ブラウザがブロックした場合は、ブロックされたポップアップを許可すれば Rimo のサインインページが開きます。ブロックしたままだと *「Unable to sign in. Please try again.」* となりサインインできません。
+
 - Rimo のページで許可した後、チャットに手動で戻って **メッセージをもう一度送る** 必要がある場合があります — 接続が有効になるまで少し時間がかかります。
-- ブラウザがサインインのポップアップをブロックする場合は、そのページの **ポップアップを許可** して、もう一度 **接続（Connect）** を試してください。
 - 最初のツール呼び出しでは、一度だけ **アクセス許可が必要（Permission Required）→ 許可（Allow）** のカードが表示されます。許可した後は、以降のメッセージや新しいチャットではプロンプトなしで動作します。
 
 ---
@@ -387,5 +393,6 @@ Rimo は、サインイン中のユーザーが、承認した Rimo 組織の中
 
 - [Claude で Rimo を使う](rimo-in-claude.md) — Rimo を Claude につなぐ
 - [ChatGPT で Rimo を使う](rimo-in-chatgpt.md) — Rimo を ChatGPT につなぐ
+- [Gemini で Rimo を使う](rimo-in-gemini.md) — Rimo を Gemini Spark につなぐ
 - [MCP でできること](mcp.md) — 利用できる Rimo のツールと例
 - [認証](authentication.md) — Rimo のサインインとアカウントの仕組み

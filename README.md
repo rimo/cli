@@ -2,7 +2,7 @@
 
 [English](README.en.md) | [日本語](README.md)
 
-`rimo` は [Rimo Voice](https://rimo.app) プラットフォームのコマンドラインインターフェースです。ターミナルから会議ノートの検索・取得・質問ができます。
+`rimo` は [Rimo](https://rimo.app) プラットフォームのコマンドラインインターフェースです。ターミナルから会議ノートの検索・取得・質問ができます。
 
 人間と AI エージェント（Claude Code、Codex など）の両方のために作られています。すべてのコマンドはデフォルトで JSON を出力し、`--help` で挙動を確認できるため、スクリプトやエージェントのワークフローにそのまま組み込めます。
 
@@ -58,6 +58,7 @@ rimo note ask "what did we decide on pricing?"   # ノートから AI が回答�
 --fields <spec>      含めるフィールド: "" (すべて)、"compact"、または "field1,field2"
 --excludes <list>    出力から除外するフィールド（カンマ区切り）
 --dry-run            副作用なしでコマンドをシミュレーション（書き込み系のみ）
+--pretty             JSON の代わりに人間が読みやすい表形式で出力（明示指定時のみ。既定は JSON）
 ```
 
 ## ドキュメント
@@ -67,7 +68,8 @@ rimo note ask "what did we decide on pricing?"   # ノートから AI が回答�
 - [個人用 APIキー](docs/ja/personal-api-keys.md) — Web アプリでキーを作成し、CI/CD 向けに `RIMO_API_KEY` で認証
 - [コマンド](docs/ja/commands.md) — フラグと例を含む完全なリファレンス
 - [設定](docs/ja/configuration.md) — `config.yaml`、認証情報の保存、環境変数
-- [出力とエラー](docs/ja/output-and-errors.md) — JSON 設計、`--fields`/`--excludes`、終了コード
+- [出力とエラー](docs/ja/output-and-errors.md) — JSON 設計、`--pretty` の表形式、`--fields`/`--excludes`、終了コード
+- [レスポンスリファレンス](docs/ja/responses.md) — 各コマンドが返す値をフィールド単位で解説
 - [MCP でできること](docs/ja/mcp.md) — AI アシスタントが Rimo ノートから何を調べて答えられるか
 - [コーディングツールで使う](docs/ja/setup-guide.md) — Claude Code、Codex CLI、Cursor、Claude Desktop で `rimo` MCP サーバーを接続する
 - [トラブルシューティング](docs/ja/troubleshooting.md) — インストール・ログイン・PATH のよくある問題

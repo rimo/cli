@@ -7,8 +7,8 @@
 | ファイル | 役割 |
 |------|------|
 | `manifest.json` | 拡張機能のメタデータ + MCP サーバーの起動定義。**拡張機能の `version` の唯一のソースオブトゥルース。** |
-| `icons/icon.png` | Claude Desktop に表示される拡張機能のアイコン（`rimo` GitHub org のアバターを元にした Rimo のブランドマーク）。 |
-| `icons/icon-16.png`, `icons/icon-32.png`, `icons/icon-128.png` | 小さいサイズ（`icons/icon.png` を `sips` で縮小したもの）。コンパクトな UI（コネクターメニューなど）が正確なサイズを選べるよう、manifest の `icons` 配列に列挙されています。ローカル拡張機能の場合、Claude Desktop は一部のメニューで頭文字アバターを表示することがあります — アップストリームの [mcpb#154](https://github.com/modelcontextprotocol/mcpb/issues/154) を参照。 |
+| `icons/icon.png` | Claude Desktop に表示される拡張機能のアイコン（Rimo のプロダクトマーク）。 |
+| `icons/icon-16.png`, `icons/icon-32.png`, `icons/icon-128.png` | 小さいサイズ（`sips` で縮小したもの）。コンパクトな UI（コネクターメニューなど）が正確なサイズを選べるよう、manifest の `icons` 配列に列挙されています。ローカル拡張機能の場合、Claude Desktop は一部のメニューで頭文字アバターを表示することがあります — アップストリームの [mcpb#154](https://github.com/modelcontextprotocol/mcpb/issues/154) を参照。 |
 | `server/` | **Gitignore されたビルド成果物** — パック直前にここへ配置される `rimo` バイナリ（ローカルでは `make mcpb-server-binaries`、リリースワークフローでは署名済みの goreleaser 成果物をコピー）。 |
 | `.mcpbignore` | パックされたバンドルから除外するファイル。 |
 

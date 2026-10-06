@@ -6,7 +6,7 @@ Rimo の **MCP** 接続を使うと、AI アシスタントがあなたの Rimo 
 
 接続方法は 2 通りありますが、**できることはどちらも同じ** です:
 
-- **Web アシスタントで — Claude、ChatGPT、または Microsoft Copilot。** インストール不要。Rimo を一度追加し、ブラウザでサインインするだけです。[Claude で Rimo を使う](rimo-in-claude.md)、[ChatGPT で Rimo を使う](rimo-in-chatgpt.md)、または [Microsoft Copilot で Rimo を使う](rimo-in-microsoft.md) を参照してください。
+- **Web アシスタントで — Claude、ChatGPT、Gemini、または Microsoft Copilot。** インストール不要。Rimo を一度追加し、ブラウザでサインインするだけです。[Claude で Rimo を使う](rimo-in-claude.md)、[ChatGPT で Rimo を使う](rimo-in-chatgpt.md)、[Gemini で Rimo を使う](rimo-in-gemini.md)、または [Microsoft Copilot で Rimo を使う](rimo-in-microsoft.md) を参照してください。
 - **自分のパソコンのコーディングツールで — Claude Code、Codex CLI、Cursor、Claude Desktop。** 一度だけセットアップすれば Rimo に接続できます。[コーディングツールで使う](setup-guide.md) を参照してください。
 
 このページは、接続したあとに *できること* の説明です。*接続方法* は上記のリンク先を参照してください。
@@ -88,6 +88,6 @@ Rimo の **MCP** 接続を使うと、AI アシスタントがあなたの Rimo 
 
 ## 関連項目
 
-- [Claude で Rimo を使う](rimo-in-claude.md) / [ChatGPT で Rimo を使う](rimo-in-chatgpt.md) / [Microsoft Copilot で Rimo を使う](rimo-in-microsoft.md) — Web アシスタントで接続。インストール不要
+- [Claude で Rimo を使う](rimo-in-claude.md) / [ChatGPT で Rimo を使う](rimo-in-chatgpt.md) / [Gemini で Rimo を使う](rimo-in-gemini.md) / [Microsoft Copilot で Rimo を使う](rimo-in-microsoft.md) — Web アシスタントで接続。インストール不要
 - [コーディングツールで使う](setup-guide.md) — 自分のマシンのコーディングツールで接続（Claude Code、Codex CLI、Cursor、Claude Desktop）
 - [認証](authentication.md) — ログインフロー、トークン保存、複数アカウント

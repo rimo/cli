@@ -17,7 +17,7 @@ https://mcp.rimo.app/mcp
 
 > **Already have a Copilot Studio agent?** You don't need to build a new one — jump straight to **[Add Rimo MCP to your agent](#add-rimo-mcp-to-your-agent)**, then come back for testing and publishing.
 
-> Using Claude or ChatGPT instead? See [Rimo in Claude](rimo-in-claude.md) or [Rimo in ChatGPT](rimo-in-chatgpt.md).
+> Using Claude, ChatGPT, or Gemini instead? See [Rimo in Claude](rimo-in-claude.md), [Rimo in ChatGPT](rimo-in-chatgpt.md), or [Rimo in Gemini](rimo-in-gemini.md).
 
 ---
 
@@ -41,7 +41,7 @@ Skip this section if you already have an agent — go to [Add Rimo MCP to your a
 
 1. Sign in to [Microsoft Copilot Studio](https://copilotstudio.microsoft.com/) and select the environment you want.
 2. On the **Home** or **Agents** page, describe what you want in your own words, or select **Create blank agent** to skip the description. Copilot Studio provisions the agent and opens its **Overview** page.
-3. In the **Details** section, set the agent's name (for example, `Rimo Voice`). In the **Instructions** section, describe how it should behave — see [Recommended agent instructions](#recommended-agent-instructions) below.
+3. In the **Details** section, set the agent's name (for example, `Rimo`). In the **Instructions** section, describe how it should behave — see [Recommended agent instructions](#recommended-agent-instructions) below.
 4. Copilot Studio configures the agent for **Microsoft Entra ID** authentication automatically. Leave it on.
 
 See [Create and edit agents](https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-first-bot) for the full walkthrough.
@@ -228,6 +228,9 @@ Your tenant must allow Power Platform apps in Teams. If the link is blocked, ask
 
 ### End user / Account B
 
+> [!IMPORTANT]
+> **Allow the sign-in pop-up.** Selecting **Connect** opens Rimo sign-in in a pop-up window. If your browser blocks it, allow the blocked pop-up — the Rimo sign-in page then opens. Leave it blocked and sign-in fails with *"Unable to sign in. Please try again."*
+
 1. Open the agent (from the link, or find **Rimo Voice** in the Microsoft 365 or Teams agent store) and select **Add**.
 
    ![The Rimo Voice listing in the agent store with the Add button](../images/assets/microsoft-store-add.png)
@@ -244,7 +247,8 @@ Your tenant must allow Power Platform apps in Teams. If the link is blocked, ask
 
    ![The Connect to Rimo dialog with the Create button](../images/assets/microsoft-enduser-connect-rimo.png)
 
-   > **Note:** If your browser blocks the sign-in pop-up, allow pop-ups for this page — otherwise the sign-in cannot complete.
+> [!IMPORTANT]
+> **Allow the sign-in pop-up.** Rimo sign-in opens in a pop-up window at this step. If your browser blocks it, allow the blocked pop-up — the Rimo sign-in page then opens. Leave it blocked and sign-in fails with *"Unable to sign in. Please try again."*
 
 5. Return to the chat and send the message again. The first time, an **Allow** card may appear — select **Allow**. The agent then returns Account B's notes.
 
@@ -302,8 +306,10 @@ After the administrator deploys the agent, each employee only needs to:
 
 ### The first time you use it
 
+> [!IMPORTANT]
+> **Allow the sign-in pop-up.** Selecting **Connect** opens Rimo sign-in in a pop-up window. If your browser blocks it, allow the blocked pop-up — the Rimo sign-in page then opens. Leave it blocked and sign-in fails with *"Unable to sign in. Please try again."*
+
 - After you approve on the Rimo page, you may need to return to the chat manually and **send your message again** — the connection takes a moment to activate.
-- If your browser blocks the sign-in pop-up, **allow pop-ups** for the page and try **Connect** again.
 - The first tool call shows a one-time **Permission Required → Allow** card. After you allow it, later messages and new chats work without prompting.
 
 ---
@@ -377,5 +383,6 @@ Rimo only ever shows the agent what the signed-in user can see in the Rimo organ
 
 - [Rimo in Claude](rimo-in-claude.md) — connect Rimo to Claude
 - [Rimo in ChatGPT](rimo-in-chatgpt.md) — connect Rimo to ChatGPT
+- [Rimo in Gemini](rimo-in-gemini.md) — connect Rimo to Gemini Spark
 - [What you can do with MCP](mcp.md) — available Rimo tools and examples
 - [Authentication](authentication.md) — how Rimo sign-in and accounts work
