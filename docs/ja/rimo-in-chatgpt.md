@@ -51,20 +51,20 @@ Rimo のパスワードやキーを ChatGPT に入力することはありませ
 ## Rimo プラグインを追加する
 
 1. **設定（Settings）→ プラグイン（Plugins）** を開きます（または [chatgpt.com/plugins](https://chatgpt.com/plugins) にアクセスします）。
-2. 右上の **＋** をクリックします。
+2. 右上の **追加（Add）** をクリックし、**カスタム MCP サーバーを追加（Add custom MCP server）** を選びます。
 
-   ![プラグインのページ。右上の「＋」ボタンをマークした状態](../images/assets/ja/chatgpt-plugins-add.png)
+   ![プラグインのページ。「追加」メニューを開き、「カスタム MCP サーバーを追加」をマークした状態](../images/assets/ja/chatgpt-plugins-add.png)
 
-3. **新規アプリ（New App）** ダイアログに入力します。
+3. **カスタム MCP サーバーを追加（Add custom MCP server）** ダイアログに入力します。
    - **名前（Name）:** `Rimo`
    - **説明（Description）:** `Rimo — ミーティングノート・文字起こし・ドキュメントの一覧・閲覧・検索・質問ができます。`
-   - **接続（Connection）:** **サーバー URL（Server URL）** のまま `https://mcp.rimo.app/mcp` を入力します
-   - **認証（Authentication）:** **OAuth**（**詳細 OAuth 設定（Advanced OAuth settings）** はそのままで構いません）
-   - **理解した上で続行する（I understand and want to continue）** にチェックを入れます。
+   - **接続タイプ（Connection）:** **サーバーURL（Server URL）** のまま `https://mcp.rimo.app/mcp` を入力します
+   - **認証（Authentication）:** **OAuth**（**OAuthの詳細設定（Advanced OAuth settings）** はそのままで構いません）
+   - **理解したうえで続けます（I understand and want to continue）** にチェックを入れます。
 
-   ![「新規アプリ」ダイアログ。名前・説明・接続（サーバー URL）・認証（OAuth）と「作成」ボタン](../images/assets/ja/chatgpt-new-app.png)
+   ![「カスタム MCP サーバーを追加」ダイアログ。名前・説明・接続タイプ（サーバーURL）・認証（OAuth）と「プラグインとして作成」ボタン](../images/assets/ja/chatgpt-new-app.png)
 
-4. **作成（Create）** をクリックします。Rimo プラグインが **プラグイン → 個人用（Personal）→ 自分が作成（Created by me）** に表示されます。
+4. **プラグインとして作成（Create as a plugin）** をクリックします。Rimo プラグインが **プラグイン → 個人用（Personal）→ 自分が作成（Created by me）** に表示されます。
 
 ---
 
@@ -150,7 +150,7 @@ Rimo は、**あなた自身が Rimo で閲覧権限があるもの** しか Cha
 
 ## うまくいかないとき
 
-**「プラグイン」や作成用の「＋」が見つからない。** カスタム MCP プラグインには Plus / Pro / Business / Enterprise / Education のプラン（Web 版）が必要で、**開発者モード（Developer mode）** をオンにしておく必要があります（**設定 → セキュリティとログイン → 開発者モード**）。Business / Enterprise / Education のワークスペースでは、管理者が先にカスタムコネクターを許可する必要があります。ChatGPT ワークスペースの管理者に相談してください。
+**「プラグイン」や「カスタム MCP サーバーを追加」が見つからない。** カスタム MCP プラグインには Plus / Pro / Business / Enterprise / Education のプラン（Web 版）が必要で、**開発者モード（Developer mode）** をオンにしておく必要があります（**設定 → セキュリティとログイン → 開発者モード**）。Business / Enterprise / Education のワークスペースでは、管理者が先にカスタムコネクターを許可する必要があります。ChatGPT ワークスペースの管理者に相談してください。
 
 **チャットで Rimo が使えない。** **開発者モード（Developer mode）** がオンのままか確認してください（**設定 → セキュリティとログイン**）。オフにするとカスタム MCP プラグインが無効になり、オンに戻すまで Rimo はチャットから消えます。
 
