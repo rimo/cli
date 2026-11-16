@@ -40,8 +40,8 @@ Rimo は **ユーザーごとの認証** を使います。各ユーザーは、
 すでにエージェントをお持ちの場合はこのセクションを飛ばして、[エージェントに Rimo MCP を追加する](#add-rimo-mcp-to-your-agent) に進んでください。
 
 1. [Microsoft Copilot Studio](https://copilotstudio.microsoft.com/) にサインインし、使いたい環境を選びます。
-2. **ホーム（Home）** または **エージェント（Agents）** のページで、作りたいものを自分の言葉で説明するか、**空のエージェントを作成（Create blank agent）** を選んで説明を省略します。Copilot Studio がエージェントを準備し、その **概要（Overview）** ページを開きます。
-3. **詳細（Details）** セクションでエージェントの名前を設定します（例: `Rimo`）。**指示（Instructions）** セクションで動作を記述します — 下記の [推奨するエージェントの指示](#recommended-agent-instructions) を参照してください。
+2. 左メニューの **エージェント（Agents）** を開き、**新しいエージェント（New agent）** を選びます。Copilot Studio が名前のない下書きを作成し、**ビルド（Build）** ビューで開きます。
+3. 上部の名前を選んでエージェント名を入力します（例: `Rimo`）。**指示（Instructions）** に動作を記述します — 下記の [推奨するエージェントの指示](#recommended-agent-instructions) を参照してください。
 4. Copilot Studio はエージェントを **Microsoft Entra ID** 認証用に自動で構成します。オンのままにしてください。
 
 詳しい手順は [エージェントの作成と編集](https://learn.microsoft.com/ja-jp/microsoft-copilot-studio/authoring-first-bot) を参照してください。
@@ -70,22 +70,23 @@ Rimo は **ユーザーごとの認証** を使います。各ユーザーは、
 
 以下のセットアップは、エージェント作成者がエージェントの **ビルド（Build）** ビューで一度だけ行います。
 
-1. 右側のパネルで **ツール（Tools）** を開きます。
+1. 右側のパネルで **ツール（Tools）** の横の **＋** を選びます。**ツールの追加（Add a tool）** ダイアログが開きます。
 
    ![エージェントのビルドビュー。右側パネルの「ツール（Tools）」をマークした状態](../images/assets/ja/microsoft-open-tools.png)
 
-2. **ツールの追加（Add a tool）** を選びます。ダイアログで右上の **＋ 追加（Add）** を選び、**モデル コンテキスト プロトコル (MCP)** を選択します。
+2. ダイアログで右上の **＋ 追加（Add）** を選び、**モデル コンテキスト プロトコル (MCP)** を選択します。
 
    ![「ツールの追加」ダイアログ。「＋ 追加」メニューを開き、「モデル コンテキスト プロトコル (MCP)」をマークした状態](../images/assets/ja/microsoft-add-tool-mcp.png)
 
 3. サーバーの詳細を入力します。
+   - **アイコン（Icon）:** アイコンの枠を選び、Rimo のロゴ（PNG、30 KB 未満）をアップロードします。
    - **サーバー名（Server name）:** `Rimo`
    - **サーバーの説明（Server description）:** `Rimo — list, read, search, and ask across your meeting notes, transcripts, and documents.`
    - **サーバー URL（Server URL）:** `https://mcp.rimo.app/mcp`
    - **認証（Authentication）:** **OAuth 2.0**
    - **構成の種類（Configuration type）:** **動的 (検出あり)**
 
-   ![「MCP サーバーを追加」ダイアログ。Rimo の名前・説明・URL、OAuth 2.0、動的 (検出あり) を選択した状態](../images/assets/ja/microsoft-mcp-details.png)
+   ![「MCP サーバーを追加」ダイアログ。Rimo のアイコン・名前・説明・URL、OAuth 2.0、動的 (検出あり) を選択した状態](../images/assets/ja/microsoft-mcp-details.png)
 
 4. **追加（Add）** を選びます。Copilot Studio が接続を求めたら接続を作成し（[エージェント作成者として Rimo にサインインする](#sign-in-to-rimo-as-the-maker) を参照）、もう一度 **追加（Add）** を選んでエージェントに追加します。
 
@@ -101,17 +102,17 @@ Rimo は **ユーザーごとの認証** を使います。各ユーザーは、
 
 1. 接続パネルが **未接続（Not connected）** になっているとき、ドロップダウンを開いて **新しい接続を作成（Create new connection）** を選びます。
 
-   ![「接続を選択します」ダイアログ。接続のドロップダウンを開き、「Create new connection」をマークした状態](../images/assets/ja/microsoft-select-connection.png)
+   ![「接続を選択します」ダイアログ。接続のドロップダウンを開き、「Create new connection」をマークした状態](../images/assets/microsoft-select-connection.png)
 
 2. **作成（Create）** を選びます。
 
-   ![「Creating a connection to use Rimo in this flow」ダイアログの「Create」ボタン](../images/assets/ja/microsoft-create-connection.png)
+   ![「Creating a connection to use Rimo in this flow」ダイアログの「Create」ボタン](../images/assets/microsoft-create-connection.png)
 
-3. Rimo のページが開きます。いつもの Rimo アカウントでサインインし、接続がアクセスできる **組織** を選んで、**アクセスを許可する（Approve）** を選びます。組織を選ぶまでボタンは押せません。
+3. Rimo のページが開きます。いつもの Rimo アカウントでサインインし、接続がアクセスできる **組織** を選んで、**アクセスを許可（Allow access）** を選びます。組織を選ぶまでボタンは押せません。
 
-   ![Rimo の同意ページ。組織の選択と「アクセスを許可する」ボタン](../images/assets/microsoft-rimo-approve.png)
+   ![Rimo の同意ページ。組織の選択と「アクセスを許可（Allow access）」ボタン](../images/assets/microsoft-rimo-approve.png)
 
-4. Copilot Studio に戻ると接続に緑のチェックが表示されます。**追加（Add）** を選んでエージェントに追加します。
+4. Copilot Studio に戻ると接続に緑のチェックが表示されます。**追加（Add）** を選びます。
 
 このエージェント作成者の接続は作成とテストのためだけのものです。全従業員のための共通の資格情報として **共有されるわけではありません** — 各エンドユーザーは、展開後に自分の Rimo アカウントでサインインします。
 
@@ -121,27 +122,27 @@ Rimo は **ユーザーごとの認証** を使います。各ユーザーは、
 
 Rimo ツールが、各従業員をエージェント作成者ではなく **本人の** Rimo アカウントでサインインさせる設定になっていることを確認します。
 
-1. **ツール（Tools）** で Rimo ツールを開き、**編集（Edit）** を選んで **Edit MCP server** ダイアログを開きます。
-2. **認証モード（Authentication mode）** で **ユーザー（User）** を選びます。
+1. 右側パネルの **ツール（Tools）** で **Rimo** を選びます。**ツールを編集（Edit tool）** ダイアログが開きます — 別の **編集（Edit）** ボタンはありません。
+2. 右上の **認証（Authentication）** ドロップダウンで **エンド ユーザー アカウント（End user account）** を選びます。
 
-   ![「Edit MCP server」ダイアログ。認証モードを「ユーザー」に設定した状態](../images/assets/ja/microsoft-auth-mode-user.png)
+   ![「ツールを編集」ダイアログ。「認証」を「エンド ユーザー アカウント」に設定した状態](../images/assets/ja/microsoft-auth-mode-user.png)
 
-**ユーザー（User）** は、各従業員が自分の Rimo アカウントでサインインし、自分のノートだけを見る設定です。**作成者（Maker）** を選ぶと、全員が作成者本人の 1 つの接続を共有してしまうため、使わないでください。**確認（Confirm）** を選びます。
+**エンド ユーザー アカウント（End user account）** は、各従業員が自分の Rimo アカウントでサインインし、自分のノートだけを見る設定です。**共有アカウント（Shared account）** を選ぶと、全員が作成者本人の 1 つの接続を共有してしまうため、使わないでください。**完了（Done）** を選びます。
 
 ---
 
 ## 公開前にテストする
 
-1. エージェントの **プレビュー（Preview）** パネルを開き、新しい会話を始めます。
+1. エージェントの **プレビュー（Preview）** タブを開き、新しい会話を始めます。
 2. こう尋ねます。
 
    ```text
    最近の Rimo のノートを見せて。
    ```
 
-3. 初回は、Copilot が **アクセス許可が必要（Permission Required）** のカードを表示します — **許可（Allow）** を選びます。するとエージェントがノートを返します。
+3. 初回は、Copilot が **アクセス許可が必要（Permission Required）** のカードを表示することがあります — **許可（Allow）** を選びます。するとエージェントがノートを返します。
 
-   ![プレビューパネル。「Permission Required」カードと、返された Rimo ノートの一覧](../images/assets/microsoft-test-panel.png)
+   ![「プレビュー」タブ。返された Rimo ノートの一覧](../images/assets/microsoft-test-panel.png)
 
 ---
 
@@ -189,13 +190,16 @@ Rimo ツールが、各従業員をエージェント作成者ではなく **本
 
 公開が可能なプランが必要です。試用版は前のテスト手順で止まります。
 
-1. **公開（Publish）** を選び、確認します。
-2. **チャネル（Channels）→ Teams と Microsoft 365 Copilot** を開きます。
-3. エージェントを Teams だけでなく Microsoft 365 Copilot でも動かすため、**Microsoft 365 Copilot でエージェントを利用可能にする（Make agent available in Microsoft 365 Copilot）** を選択したままにし、**保存して公開（Save and publish）** を選びます。
+1. 右側のパネルで **チャネル（Channels）** の横の **＋** を選び、**Teams + Microsoft 365** を選びます。
 
-   ![チャネルパネル。Teams と Microsoft 365 を選択し、「Make agent available in Microsoft 365 Copilot」にチェックが入った状態](../images/assets/microsoft-publish-channel.png)
+   ![「Add a channel」ダイアログ。「Teams + Microsoft 365」をマークした状態](../images/assets/microsoft-add-channel.png)
 
-4. **詳細を編集（Edit details）** で、組織が求める名前・説明・アイコン・プライバシーステートメント・利用規約を追加します。内容を変更したら再度公開してください。
+2. **利用可能な場所（Availability）** で、エージェントを Teams だけでなく Microsoft 365 Copilot でも動かすため **Microsoft Copilot and Microsoft Teams** を選択したままにし、**チャネルを追加（Add channel）** を選びます。
+
+   ![「Availability」タブ。「Microsoft Copilot and Microsoft Teams」を選択した状態](../images/assets/microsoft-publish-channel.png)
+
+3. 右上の **公開（Publish）** を選び、**エージェントを公開（Publish agent）** を選びます。*「Your agent published successfully」*（エージェントが公開されました）と表示されるまで待ちます。
+4. 右側パネルの **Teams + Microsoft 365** チャネルを選び、**About info**（情報）で、組織が求める名前・説明・アイコン・プライバシーステートメント・利用規約を追加します。内容を変更したら再度公開してください。
 
 [Teams と Microsoft 365 Copilot 用にエージェントを接続・構成する](https://learn.microsoft.com/ja-jp/microsoft-copilot-studio/publication-add-bot-to-microsoft-teams) を参照してください。
 
@@ -230,9 +234,9 @@ Rimo ツールを追加すると、Power Platform 環境にエージェント作
 
 ### エージェント作成者 / アカウント A
 
-1. **チャネル（Channels）→ Teams と Microsoft 365 Copilot → 公開範囲のオプション（Availability options）** を開きます。
-2. **エージェントを共有（Share Agent）** を選び、アカウント B（またはそれを含むセキュリティグループ）に **エンドユーザーアクセス（End user access）** を付与します — インストールリンクは、アクセス権を持つユーザーにしか機能しません。
-3. **リンクをコピー（Copy link）** を選び、アカウント B に送ります。
+1. 上部バーの **共有（Share）** アイコンを選びます。**共有** ダイアログが開きます。
+2. **Add a name, group, or email**（名前、グループ、メールを追加）に、アカウント B（またはそれを含むセキュリティグループ）を追加します — インストールリンクは、アクセス権を持つユーザーにしか機能しません。
+3. **Copy sharing link**（共有リンクをコピー）を選び、アカウント B に送ります。
 
 テナントで Teams への Power Platform アプリの追加が許可されている必要があります。リンクがブロックされる場合は、Teams 管理者にエージェントの許可を依頼してください。
 
@@ -241,28 +245,26 @@ Rimo ツールを追加すると、Power Platform 環境にエージェント作
 > [!IMPORTANT]
 > **サインインのポップアップを許可してください。** **接続（Connect）** を選ぶと、Rimo のサインインがポップアップウィンドウで開きます。ブラウザがブロックした場合は、ブロックされたポップアップを許可すれば Rimo のサインインページが開きます。ブロックしたままだと *「Unable to sign in. Please try again.」* となりサインインできません。
 
-1. エージェントを開き（リンクから、または Microsoft 365 か Teams のエージェントストアで **Rimo Voice** を探して）、**追加（Add）** を選びます。
+1. エージェントを開き（リンクから、または Microsoft 365 か Teams のエージェントストアで **Rimo** を探して）、**追加（Add）** を選びます。
 
-   ![エージェントストアの Rimo Voice のページと「追加（Add）」ボタン](../images/assets/microsoft-store-add.png)
+   ![エージェントストアの Rimo のページと「追加（Add）」ボタン](../images/assets/microsoft-store-add.png)
 
-2. *「最近の Rimo のノートを一覧して」* など、Rimo を必要とする質問をします。エージェントが **接続が必要（Connection Required）** のカードを表示します — **接続を設定（Set up connection）** を選びます。
+2. *「最近の Rimo のノートを一覧して」* など、Rimo を必要とする質問をします。エージェントが Rimo のカード *「Connect your account, then select "Continue".」*（アカウントを接続してから「Continue」を選んでください）を表示します。**接続（Connect）** を選びます。
 
-   ![Rimo Voice のチャット。「Connection Required」カードと「Set up connection」](../images/assets/microsoft-enduser-connection-required.png)
+   ![Rimo のチャット。「Connect your account」カードと「Connect」「Continue」ボタン](../images/assets/microsoft-enduser-connect-card.png)
 
-3. **接続の管理（Manage your connections）** ページで、Rimo の行の **接続（Connect）** を選びます。
+3. 開いたウィンドウで **作成（Create）** を選びます。
 
-   ![「Manage your connections」ページ。Rimo の行と「Connect」リンク](../images/assets/microsoft-enduser-connections.png)
+   ![Rimo の接続ダイアログの「作成（Create）」ボタン](../images/assets/microsoft-enduser-connect-rimo.png)
 
-4. **新しい接続を作成（Create new connection）→ 作成（Create）** を選び、**アカウント B 自身の Rimo アカウント** でサインインし、組織を選んで **アクセスを許可する（Approve）** を選びます。
-
-   ![「Connect to Rimo」ダイアログの作成ボタン](../images/assets/microsoft-enduser-connect-rimo.png)
+4. **アカウント B 自身の Rimo アカウント** でサインインし、組織を選んで **アクセスを許可（Allow access）** を選びます。
 
 > [!IMPORTANT]
 > **サインインのポップアップを許可してください。** この手順で Rimo のサインインがポップアップウィンドウで開きます。ブラウザがブロックした場合は、ブロックされたポップアップを許可すれば Rimo のサインインページが開きます。ブロックしたままだと *「Unable to sign in. Please try again.」* となりサインインできません。
 
-5. チャットに戻り、メッセージをもう一度送ります。初回は **許可（Allow）** のカードが表示されることがあります — **許可（Allow）** を選びます。するとエージェントがアカウント B のノートを返します。
+5. チャットに戻り、カードの **Continue**（続行）を選びます。初回は **許可（Allow）** のカードが表示されることがあります — **許可（Allow）** を選びます。するとエージェントがアカウント B のノートを返します。
 
-   ![Rimo Voice のチャット。2 回目の送信でエンドユーザーの最近のノートの一覧が返された状態](../images/assets/microsoft-enduser-notes.png)
+   ![Rimo のチャット。エンドユーザーの最近のノートの一覧が返された状態](../images/assets/microsoft-enduser-notes.png)
 
 ---
 
@@ -272,19 +274,16 @@ Rimo ツールを追加すると、Power Platform 環境にエージェント作
 
 ### ステップ 1 — エージェント作成者が提出する
 
-1. **チャネル（Channels）→ Teams と Microsoft 365 Copilot → 公開範囲のオプション（Availability options）** を開きます。
+1. 上部バーの **共有（Share）** アイコンを選び、**Org-wide sharing for use access**（組織全体で利用可能にする共有）をオンにします。これで全員にエージェントを *使う* 権限が付与されます — これは必須の手順です。エージェントを見つけられても、アクセス権がなければチャットできません。
 
-   ![公開済みエージェントのパネル。「Availability options」をマークした状態](../images/assets/microsoft-availability-options.png)
+   ![「Share Rimo」ダイアログ。「Org-wide sharing for use access」をオンにした状態](../images/assets/microsoft-share-dialog.png)
 
-2. **エージェントを共有（Share Agent）** を選び、**組織内の全員（Everyone in your organization）** を **エンドユーザーアクセス（End user access）** に設定して **共有（Share）** します。これで全員にエージェントを *使う* 権限が付与されます — これは必須の手順です。エージェントを見つけられても、アクセス権がなければチャットできません。
+2. 右側パネルの **Teams + Microsoft 365** チャネルを選び、**Use and share**（使用と共有）を開きます。
+3. **Share your agent**（エージェントを共有）で **組織カタログに送信（Submit to org catalog）** を選んで確認します。これでエージェントが管理者の承認に送られ、承認されると Microsoft 365 Agent Store の **Built by your org**（Teams では **Built for your org**）に組織全体向けとして掲載されます。
 
-   ![「Share Rimo Voice」ダイアログ。「Everyone in your organization」を「End user access」に設定した状態](../images/assets/microsoft-share-dialog.png)
+   ![Teams + Microsoft 365 チャネルの「Use and share」タブ。「Submit to org catalog」をマークした状態](../images/assets/microsoft-submit-catalog.png)
 
-3. **組織カタログに送信（Submit to org catalog）** を選んで確認します。これでエージェントが管理者の承認に送られ、承認されると Microsoft 365 Agent Store の **Built by your org**（Teams では **Built for your org**）に組織全体向けとして掲載されます。
-
-   ![公開済みエージェントのパネル。「Submit to org catalog」をマークした状態](../images/assets/microsoft-submit-catalog.png)
-
-   > **メモ:** 提出後は、エージェントのアクセス設定を「組織内の全員」より狭めないでください。狭めると、インストール済みのユーザーでもエージェントとチャットできなくなります。
+   > **メモ:** 提出後は **Org-wide sharing for use access** をオンのままにしてください。オフにすると、インストール済みのユーザーでもエージェントとチャットできなくなります。
 
 ### ステップ 2 — 管理者が承認する
 
@@ -292,13 +291,15 @@ Rimo ツールを追加すると、Power Platform 環境にエージェント作
 
 1. [Microsoft 365 管理センター](https://admin.microsoft.com/) を開き、**エージェント（Agents）→ すべてのエージェント（All agents）→ リクエスト（Requests）** に移動します。
 
-   ![Microsoft 365 管理センターの「Requests」タブ。承認待ちの Rimo Voice エージェント](../images/assets/microsoft-admin-requests.png)
+   ![Microsoft 365 管理センターの「Requests」タブ。承認待ちの Rimo エージェント](../images/assets/microsoft-admin-requests.png)
 
 2. 承認待ちの Rimo エージェントを開き、発行元・機能・データアクセス・ツール・セキュリティ・アクセス許可を確認したら、**ストアに公開（Publish to store）** を選んで承認します。
 
-   ![承認待ちの Rimo Voice エージェントの詳細。「Publish to store」をマークした状態](../images/assets/microsoft-admin-approve.png)
+   ![承認待ちの Rimo エージェントの詳細。「Publish to store」をマークした状態](../images/assets/microsoft-admin-approve.png)
 
-3. **ユーザー（Users）** で、ユーザーがエージェントを見つけてインストールできるようにする（**利用可能（Available to）**）か、自動で配布する（**展開先（Deployed to）**）かを選びます。
+3. **Publish agent to selected users**（選択したユーザーにエージェントを公開）ウィザードで、エージェントをインストールできるユーザー（**All users** または特定のユーザー/グループ）と、事前インストールするユーザー（任意）を選び、残りのステップを **Next**（次へ）で進めて **Publish**（公開）を選びます。
+
+   ![「Publish agent to selected users」ウィザードの「Select users」ステップ](../images/assets/microsoft-admin-publish-users.png)
 
 承認後、ユーザーは Teams の **Built for your org**、または Microsoft 365 Agent Store の **Built by your org** からエージェントを見つけられます。Teams 管理者は、選んだユーザーに対してエージェントを自動でインストール・ピン留めすることもできます。
 
@@ -312,15 +313,15 @@ Rimo ツールを追加すると、Power Platform 環境にエージェント作
 
 1. Teams または Microsoft 365 Copilot で Rimo エージェントを開きます（自動展開されていない場合は、先に追加します）。
 2. Rimo を必要とする質問をします。
-3. 接続を設定して Rimo にサインインし、組織を選んでアクセスを許可します — 一度だけ。
+3. 接続して Rimo にサインインし、組織を選んでアクセスを許可します — 一度だけ。
 
 ### 初めて使うとき
 
 > [!IMPORTANT]
 > **サインインのポップアップを許可してください。** **接続（Connect）** を選ぶと、Rimo のサインインがポップアップウィンドウで開きます。ブラウザがブロックした場合は、ブロックされたポップアップを許可すれば Rimo のサインインページが開きます。ブロックしたままだと *「Unable to sign in. Please try again.」* となりサインインできません。
 
-- Rimo のページで許可した後、チャットに手動で戻って **メッセージをもう一度送る** 必要がある場合があります — 接続が有効になるまで少し時間がかかります。
-- 最初のツール呼び出しでは、一度だけ **アクセス許可が必要（Permission Required）→ 許可（Allow）** のカードが表示されます。許可した後は、以降のメッセージや新しいチャットではプロンプトなしで動作します。
+- Rimo のページで許可した後、チャットに戻って **Continue** を選びます。反応がない場合は **メッセージをもう一度送って** ください — 接続が有効になるまで少し時間がかかります。
+- 最初のツール呼び出しでは、一度だけ **アクセス許可が必要（Permission Required）→ 許可（Allow）** のカードが表示されることがあります。許可した後は、以降のメッセージや新しいチャットではプロンプトなしで動作します。
 
 ---
 
@@ -361,7 +362,7 @@ Rimo は、サインイン中のユーザーが、承認した Rimo 組織の中
 
 **ツールの追加に失敗する。** **OAuth 2.0 → Dynamic (with discovery)** を選んだか、URL が正確に `https://mcp.rimo.app/mcp` かを確認してください。
 
-**エンドユーザーにエージェント作成者の Rimo ノートが見えている。** Rimo ツールを開き、**認証モード（Authentication mode）** が **作成者（Maker）** ではなく **ユーザー（User）** になっているか確認してください。従業員一人ひとりが自分の Rimo 接続を持つ必要があります。
+**エンドユーザーにエージェント作成者の Rimo ノートが見えている。** Rimo ツールを開き、**認証（Authentication）** が **共有アカウント（Shared account）** ではなく **エンド ユーザー アカウント（End user account）** になっているか確認してください。従業員一人ひとりが自分の Rimo 接続を持つ必要があります。
 
 **エンドユーザーに「Connector information unavailable」と表示される。** Rimo カスタムコネクタが共有されていません。組織と共有してください — [Rimo コネクタを組織と共有する](#share-the-rimo-connector-with-your-organization) を参照。
 

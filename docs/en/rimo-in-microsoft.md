@@ -40,8 +40,8 @@ The Microsoft accounts must belong to the **same Microsoft Entra tenant** for th
 Skip this section if you already have an agent — go to [Add Rimo MCP to your agent](#add-rimo-mcp-to-your-agent).
 
 1. Sign in to [Microsoft Copilot Studio](https://copilotstudio.microsoft.com/) and select the environment you want.
-2. On the **Home** or **Agents** page, describe what you want in your own words, or select **Create blank agent** to skip the description. Copilot Studio provisions the agent and opens its **Overview** page.
-3. In the **Details** section, set the agent's name (for example, `Rimo`). In the **Instructions** section, describe how it should behave — see [Recommended agent instructions](#recommended-agent-instructions) below.
+2. Open **Agents** in the left menu, then select **New agent**. Copilot Studio creates an untitled draft and opens it in the **Build** view.
+3. Select the name at the top and type the agent's name (for example, `Rimo`). In **Instructions**, describe how it should behave — see [Recommended agent instructions](#recommended-agent-instructions) below.
 4. Copilot Studio configures the agent for **Microsoft Entra ID** authentication automatically. Leave it on.
 
 See [Create and edit agents](https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-first-bot) for the full walkthrough.
@@ -66,24 +66,25 @@ You help the signed-in user find and understand information from their Rimo meet
 
 The following setup is done once by the maker, in the agent's **Build** view.
 
-1. In the right-hand panel, open **Tools**.
+1. In the right-hand panel, select **+** next to **Tools**. The **Add a tool** dialog opens.
 
    ![The agent Build view with the Tools section marked in the right-hand panel](../images/assets/microsoft-open-tools.png)
 
-2. Select **Add a tool**. In the dialog, select **+ Add** (top right), then choose **Model Context Protocol (MCP)**.
+2. In the dialog, select **+ Add** (top right), then choose **Model Context Protocol (MCP)**.
 
    ![The Add a tool dialog with the Add menu open and Model Context Protocol (MCP) marked](../images/assets/microsoft-add-tool-mcp.png)
 
 3. Fill in the server details:
+   - **Icon:** select the icon box and upload the Rimo logo (PNG, under 30 KB).
    - **Server name:** `Rimo`
    - **Server description:** `Rimo — list, read, search, and ask across your meeting notes, transcripts, and documents.`
    - **Server URL:** `https://mcp.rimo.app/mcp`
    - **Authentication:** **OAuth 2.0**
    - **Configuration type:** **Dynamic (with discovery)**
 
-   ![The Add MCP server dialog with the Rimo name, description, URL, OAuth 2.0, and Dynamic (with discovery) selected](../images/assets/microsoft-mcp-details.png)
+   ![The Add MCP server dialog with the Rimo icon, name, description, URL, OAuth 2.0, and Dynamic (with discovery) selected](../images/assets/microsoft-mcp-details.png)
 
-4. Select **Add**. When Copilot Studio asks for a connection, create one (see [Sign in to Rimo as the maker](#sign-in-to-rimo-as-the-maker)), then select **Add to agent**.
+4. Select **Add**. When Copilot Studio asks for a connection, create one (see [Sign in to Rimo as the maker](#sign-in-to-rimo-as-the-maker)), then select **Add** again.
 
 See [Connect an existing MCP server to a Copilot Studio agent](https://learn.microsoft.com/en-us/microsoft-copilot-studio/mcp-add-existing-server-to-agent).
 
@@ -101,11 +102,11 @@ Copilot Studio asks the maker to create a Rimo connection while adding the tool.
 
    ![The Create a connection to use Rimo dialog with the Create button](../images/assets/microsoft-create-connection.png)
 
-3. A Rimo page opens. Sign in with your usual Rimo account, choose the **organization** the connection may access, and select **Approve**. The button stays disabled until you choose an organization.
+3. A Rimo page opens. Sign in with your usual Rimo account, choose the **organization** the connection may access, and select **Allow access**. The button stays disabled until you choose an organization.
 
-   ![The Rimo consent page with the organization selector and the Approve button](../images/assets/microsoft-rimo-approve.png)
+   ![The Rimo consent page with the organization selector and the Allow access button](../images/assets/microsoft-rimo-approve.png)
 
-4. Back in Copilot Studio the connection shows a green check. Select **Add to agent**.
+4. Back in Copilot Studio the connection shows a green check. Select **Add**.
 
 This maker connection is only for building and testing. It is **not** shared as the identity for all employees — each end user signs in with their own Rimo account after deployment.
 
@@ -115,27 +116,27 @@ This maker connection is only for building and testing. It is **not** shared as 
 
 Confirm the Rimo tool signs each employee in with **their own** Rimo account, not the maker's.
 
-1. Open the Rimo tool in **Tools** and select **Edit** to open the **Edit MCP server** dialog.
-2. Under **Authentication mode**, choose **User**.
+1. In the right-hand panel under **Tools**, select **Rimo**. The **Edit tool** dialog opens — there is no separate **Edit** button.
+2. In the top-right **Authentication** dropdown, choose **End user account**.
 
-   ![The Edit MCP server dialog with Authentication mode set to User](../images/assets/microsoft-auth-mode-user.png)
+   ![The Edit tool dialog with Authentication set to End user account](../images/assets/microsoft-auth-mode-user.png)
 
-**User** means every employee signs in with their own Rimo account and only sees their own notes. **Maker** would make everyone share the maker's single connection — do not use it. Select **Confirm**.
+**End user account** means every employee signs in with their own Rimo account and only sees their own notes. **Shared account** would make everyone share the maker's single connection — do not use it. Select **Done**.
 
 ---
 
 ## Test before publishing
 
-1. Open the agent's **Preview** panel and start a new conversation.
+1. Open the agent's **Preview** tab and start a new conversation.
 2. Ask:
 
    ```text
    Show my latest Rimo notes.
    ```
 
-3. The first time, Copilot shows a **Permission Required** card — select **Allow**. The agent then returns your notes.
+3. The first time, Copilot may show a **Permission Required** card — select **Allow**. The agent then returns your notes.
 
-   ![The Preview panel showing the Permission Required card and a table of returned Rimo notes](../images/assets/microsoft-test-panel.png)
+   ![The Preview tab showing a table of returned Rimo notes](../images/assets/microsoft-test-panel.png)
 
 ---
 
@@ -181,13 +182,17 @@ The maker does not have to be a tenant administrator.
 
 You need a publish-capable plan. A trial stops at the previous test step.
 
-1. Select **Publish**, and confirm.
-2. Open **Channels → Teams and Microsoft 365 Copilot**.
-3. Leave **Make agent available in Microsoft 365 Copilot** selected so the agent works in Microsoft 365 Copilot as well as Teams, then select **Save and publish**.
+1. In the right-hand panel, select **+** next to **Channels**, then choose **Teams + Microsoft 365**.
 
-   ![The Channels panel with Teams and Microsoft 365 selected and Make agent available in Microsoft 365 Copilot ticked](../images/assets/microsoft-publish-channel.png)
+   ![The Add a channel dialog with Teams + Microsoft 365 marked](../images/assets/microsoft-add-channel.png)
 
-4. Under **Edit details**, add the name, description, icon, privacy statement, and terms of use your organization requires. Publish again after any content change.
+2. Under **Availability**, leave **Microsoft Copilot and Microsoft Teams** selected so the agent works in Microsoft 365 Copilot as well as Teams, then select **Add channel**.
+
+   ![The Availability tab with Microsoft Copilot and Microsoft Teams selected](../images/assets/microsoft-publish-channel.png)
+
+3. Select **Publish** (top right), then **Publish agent**. Wait for *"Your agent published successfully"*.
+
+4. Select the **Teams + Microsoft 365** channel in the right-hand panel and, under **About info**, add the name, description, icon, privacy statement, and terms of use your organization requires. Publish again after any content change.
 
 See [Connect and configure an agent for Teams and Microsoft 365 Copilot](https://learn.microsoft.com/en-us/microsoft-copilot-studio/publication-add-bot-to-microsoft-teams).
 
@@ -220,9 +225,9 @@ Before submitting the agent to the whole organization, test it the way a normal 
 
 ### Maker / Account A
 
-1. Open **Channels → Teams and Microsoft 365 Copilot → Availability options**.
-2. Select **Share Agent** and give Account B (or a security group that includes it) **End user access** — the install link only works for users who have access.
-3. Select **Copy link** and send it to Account B.
+1. Select the **Share** icon in the top bar. The **Share** dialog opens.
+2. In **Add a name, group, or email**, add Account B (or a security group that includes it) — the install link only works for users who have access.
+3. Select **Copy sharing link** and send it to Account B.
 
 Your tenant must allow Power Platform apps in Teams. If the link is blocked, ask a Teams Administrator to allow the agent.
 
@@ -231,28 +236,26 @@ Your tenant must allow Power Platform apps in Teams. If the link is blocked, ask
 > [!IMPORTANT]
 > **Allow the sign-in pop-up.** Selecting **Connect** opens Rimo sign-in in a pop-up window. If your browser blocks it, allow the blocked pop-up — the Rimo sign-in page then opens. Leave it blocked and sign-in fails with *"Unable to sign in. Please try again."*
 
-1. Open the agent (from the link, or find **Rimo Voice** in the Microsoft 365 or Teams agent store) and select **Add**.
+1. Open the agent (from the link, or find **Rimo** in the Microsoft 365 or Teams agent store) and select **Add**.
 
-   ![The Rimo Voice listing in the agent store with the Add button](../images/assets/microsoft-store-add.png)
+   ![The Rimo listing in the Agent Store with the Add button](../images/assets/microsoft-store-add.png)
 
-2. Ask a question that needs Rimo, such as *"Can you list my recent Rimo notes?"* The agent shows a **Connection Required** card — select **Set up connection**.
+2. Ask a question that needs Rimo, such as *"Can you list my recent Rimo notes?"* The agent shows a Rimo card: *"Connect your account, then select "Continue"."* Select **Connect**.
 
-   ![The Rimo Voice chat showing the Connection Required card with Set up connection](../images/assets/microsoft-enduser-connection-required.png)
+   ![The Rimo chat showing the Connect your account card with Connect and Continue](../images/assets/microsoft-enduser-connect-card.png)
 
-3. On the **Manage your connections** page, select **Connect** on the Rimo row.
+3. In the window that opens, select **Create**.
 
-   ![The Manage your connections page with the Rimo row and Connect link](../images/assets/microsoft-enduser-connections.png)
+   ![The Rimo connection dialog with the Create button](../images/assets/microsoft-enduser-connect-rimo.png)
 
-4. Select **Create new connection → Create**, sign in with **Account B's own Rimo account**, choose an organization, and **Approve**.
-
-   ![The Connect to Rimo dialog with the Create button](../images/assets/microsoft-enduser-connect-rimo.png)
+4. Sign in with **Account B's own Rimo account**, choose an organization, and select **Allow access**.
 
 > [!IMPORTANT]
 > **Allow the sign-in pop-up.** Rimo sign-in opens in a pop-up window at this step. If your browser blocks it, allow the blocked pop-up — the Rimo sign-in page then opens. Leave it blocked and sign-in fails with *"Unable to sign in. Please try again."*
 
-5. Return to the chat and send the message again. The first time, an **Allow** card may appear — select **Allow**. The agent then returns Account B's notes.
+5. Return to the chat and select **Continue** on the card. The first time, an **Allow** card may appear — select **Allow**. The agent then returns Account B's notes.
 
-   ![The Rimo Voice chat returning a table of the end user's recent notes on the second try](../images/assets/microsoft-enduser-notes.png)
+   ![The Rimo chat returning a table of the end user's recent notes](../images/assets/microsoft-enduser-notes.png)
 
 ---
 
@@ -262,19 +265,16 @@ After the end-user test succeeds, the maker submits the agent and an administrat
 
 ### Step 1 — the maker submits it
 
-1. Open **Channels → Teams and Microsoft 365 Copilot → Availability options**.
+1. Select the **Share** icon in the top bar and turn on **Org-wide sharing for use access**. This grants everyone permission to *use* the agent — a required step, because a user who finds the agent still can't chat with it until they have access.
 
-   ![The published-agent panel with Availability options marked](../images/assets/microsoft-availability-options.png)
+   ![The Share Rimo dialog with Org-wide sharing for use access turned on](../images/assets/microsoft-share-dialog.png)
 
-2. Select **Share Agent**, set **Everyone in your organization** to **End user access**, and **Share**. This grants everyone permission to *use* the agent — a required step, because a user who finds the agent still can't chat with it until they have access.
+2. Select the **Teams + Microsoft 365** channel in the right-hand panel and open **Use and share**.
+3. Under **Share your agent**, select **Submit to org catalog** and confirm. This sends the agent for admin approval; once approved, it's listed org-wide under **Built by your org** in the Microsoft 365 Agent Store (and **Built for your org** in Teams).
 
-   ![The Share Rimo Voice dialog with Everyone in your organization set to End user access](../images/assets/microsoft-share-dialog.png)
+   ![The Teams + Microsoft 365 channel on the Use and share tab with Submit to org catalog marked](../images/assets/microsoft-submit-catalog.png)
 
-3. Select **Submit to org catalog** and confirm. This sends the agent for admin approval; once approved, it's listed org-wide under **Built by your org** in the Microsoft 365 Agent Store (and **Built for your org** in Teams).
-
-   ![The published-agent panel with Submit to org catalog marked](../images/assets/microsoft-submit-catalog.png)
-
-   > **Note:** After submitting, keep the agent's access set to everyone in your organization — narrowing it later stops users from chatting with the agent, even after they've installed it.
+   > **Note:** After submitting, keep **Org-wide sharing for use access** on — turning it off later stops users from chatting with the agent, even after they've installed it.
 
 ### Step 2 — an administrator approves it
 
@@ -282,13 +282,15 @@ Using an account with the **AI Administrator** role:
 
 1. Open the [Microsoft 365 admin center](https://admin.microsoft.com/) and go to **Agents → All agents → Requests**.
 
-   ![The Microsoft 365 admin center on the Requests tab with the pending Rimo Voice agent](../images/assets/microsoft-admin-requests.png)
+   ![The Microsoft 365 admin center on the Requests tab with the pending Rimo agent](../images/assets/microsoft-admin-requests.png)
 
 2. Open the pending Rimo agent, review its publisher, capabilities, data access, tools, security, and permissions, then select **Publish to store** to approve it.
 
-   ![The pending Rimo Voice agent detail with Publish to store marked](../images/assets/microsoft-admin-approve.png)
+   ![The pending Rimo agent detail with Publish to store marked](../images/assets/microsoft-admin-approve.png)
 
-3. Under **Users**, choose whether users can find and install the agent (**Available to**) or receive it automatically (**Deployed to**).
+3. In the **Publish agent to selected users** wizard, choose whether users can find and install the agent (**All users** or specific users/groups) and who gets it pre-installed (optional), then select **Next** through the remaining steps and **Publish**.
+
+   ![The Select users step of the Publish agent to selected users wizard](../images/assets/microsoft-admin-publish-users.png)
 
 After approval, users find the agent under **Built for your org** in Teams or **Built by your org** in the Microsoft 365 Agent Store. A Teams Administrator can also install and pin it automatically for selected users.
 
@@ -302,15 +304,15 @@ After the administrator deploys the agent, each employee only needs to:
 
 1. Open the Rimo agent in Teams or Microsoft 365 Copilot (add it first if it wasn't deployed automatically).
 2. Ask a question that needs Rimo.
-3. Set up the connection and sign in to Rimo, choose an organization, and approve access — once.
+3. Connect and sign in to Rimo, choose an organization, and allow access — once.
 
 ### The first time you use it
 
 > [!IMPORTANT]
 > **Allow the sign-in pop-up.** Selecting **Connect** opens Rimo sign-in in a pop-up window. If your browser blocks it, allow the blocked pop-up — the Rimo sign-in page then opens. Leave it blocked and sign-in fails with *"Unable to sign in. Please try again."*
 
-- After you approve on the Rimo page, you may need to return to the chat manually and **send your message again** — the connection takes a moment to activate.
-- The first tool call shows a one-time **Permission Required → Allow** card. After you allow it, later messages and new chats work without prompting.
+- After you allow access on the Rimo page, return to the chat and select **Continue**. If nothing happens, **send your message again** — the connection takes a moment to activate.
+- The first tool call may show a one-time **Permission Required → Allow** card. After you allow it, later messages and new chats work without prompting.
 
 ---
 
@@ -351,7 +353,7 @@ Rimo only ever shows the agent what the signed-in user can see in the Rimo organ
 
 **Adding the tool fails.** Confirm you selected **OAuth 2.0 → Dynamic (with discovery)** and used exactly `https://mcp.rimo.app/mcp`.
 
-**The end user is seeing the maker's Rimo notes.** Open the Rimo tool and confirm **Authentication mode** is **User**, not **Maker**. Every employee must have their own Rimo connection.
+**The end user is seeing the maker's Rimo notes.** Open the Rimo tool and confirm **Authentication** is **End user account**, not **Shared account**. Every employee must have their own Rimo connection.
 
 **The end user gets "Connector information unavailable."** The Rimo custom connector wasn't shared. Share it with the organization — see [Share the Rimo connector with your organization](#share-the-rimo-connector-with-your-organization).
 

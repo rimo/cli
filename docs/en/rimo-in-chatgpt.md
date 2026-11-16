@@ -49,20 +49,20 @@ Custom MCP plugins live behind **Developer mode**, so it must stay **on** — if
 ## Add the Rimo plugin
 
 1. Open **Settings → Plugins** (or go to [chatgpt.com/plugins](https://chatgpt.com/plugins)).
-2. Click the **+** at the top right.
+2. Click **Add** at the top right, then choose **Add custom MCP server**.
 
-   ![The Plugins page with the + button at the top right highlighted](../images/assets/chatgpt-plugins-add.png)
+   ![The Plugins page with the Add menu open and Add custom MCP server highlighted](../images/assets/chatgpt-plugins-add.png)
 
-3. In the **New App** dialog, fill in:
+3. In the **Add custom MCP server** dialog, fill in:
    - **Name:** `Rimo`
    - **Description:** `Rimo — list, read, search, and ask across your meeting notes, transcripts, and documents.`
    - **Connection:** keep **Server URL** and enter `https://mcp.rimo.app/mcp`
    - **Authentication:** **OAuth** (you can leave **Advanced OAuth settings** as they are)
    - Tick **I understand and want to continue**.
 
-   ![The New App dialog with Name, Description, Connection set to Server URL, Authentication set to OAuth, and the Create button](../images/assets/chatgpt-new-app.png)
+   ![The Add custom MCP server dialog with Name, Description, Connection set to Server URL, Authentication set to OAuth, and the Create as a plugin button](../images/assets/chatgpt-new-app.png)
 
-4. Click **Create**. The Rimo plugin now appears under **Plugins → Personal → Created by me**.
+4. Click **Create as a plugin**. The Rimo plugin now appears under **Plugins → Personal → Created by me**.
 
 ---
 
@@ -142,7 +142,7 @@ Rimo only ever shows ChatGPT what **you** can see in Rimo.
 
 ## If something doesn't work
 
-**You can't find "Plugins" or the "+" to create one.** Custom MCP plugins need a Plus, Pro, Business, Enterprise, or Education plan (on the web), with **Developer mode** on (**Settings → Security and login → Developer mode**). On Business / Enterprise / Education workspaces an administrator has to allow custom connectors first — ask whoever manages your ChatGPT workspace.
+**You can't find "Plugins" or "Add custom MCP server".** Custom MCP plugins need a Plus, Pro, Business, Enterprise, or Education plan (on the web), with **Developer mode** on (**Settings → Security and login → Developer mode**). On Business / Enterprise / Education workspaces an administrator has to allow custom connectors first — ask whoever manages your ChatGPT workspace.
 
 **Rimo isn't available in a chat.** Check that **Developer mode** is still on (**Settings → Security and login**). Turning it off disables custom MCP plugins, so Rimo disappears from chats until you turn it back on.
 
