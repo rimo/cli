@@ -44,6 +44,8 @@ Rimo は **ユーザーごとの認証** を使います。各ユーザーは、
 3. 上部の名前を選んでエージェント名を入力します（例: `Rimo`）。**指示（Instructions）** に動作を記述します — 下記の [推奨するエージェントの指示](#recommended-agent-instructions) を参照してください。
 4. Copilot Studio はエージェントを **Microsoft Entra ID** 認証用に自動で構成します。オンのままにしてください。
 
+> **作成時から Copilot クレジットを使います。** **新しいエージェント（New agent）** で作成したエージェントは **Microsoft Copilot ハーネス** で動作します（**エージェント（Agents）** 一覧の **Agent harness** 列に表示されます）。作成中やテスト中も Copilot クレジットを使うため、作成を始める前に環境にクレジットが必要です — [Microsoft のプランを選ぶ](#choose-your-microsoft-plan) を参照してください。
+
 詳しい手順は [エージェントの作成と編集](https://learn.microsoft.com/ja-jp/microsoft-copilot-studio/authoring-first-bot) を参照してください。
 
 <a id="recommended-agent-instructions"></a>
@@ -150,26 +152,35 @@ Rimo ツールが、各従業員をエージェント作成者ではなく **本
 
 ## Microsoft のプランを選ぶ
 
-エージェントの作成とテストが終わりました。これを **公開** するには、公開が可能な Microsoft のプランが必要です。この表は **Microsoft** についてのもので、エージェントを作成・公開・実行するために組織が Copilot Studio 側で必要とするものです。**Rimo のプランではありません**。Rimo はこの利用に対して課金せず、購入すべき特別な Rimo プランもありません — 各ユーザーは既存の Rimo アカウントでサインインするだけです。
+この節は **Microsoft** についてのもので、エージェントを作成・公開・実行するために組織が Copilot Studio 側で必要とするものです。**Rimo のプランではありません**。Rimo はこの利用に対して課金せず、購入すべき特別な Rimo プランもありません — 各ユーザーは既存の Rimo アカウントでサインインするだけです。
 
-| Microsoft の構成 | 作成できる人 | 公開可否 | エンドユーザーに必要なもの | 利用料金の支払い |
-|---|---|---:|---|---|
-| **Copilot Studio 試用版** | 試用版のユーザー | 不可 | 該当なし | テストパネルのみ |
-| **Microsoft 365 Copilot** — アドオン、Microsoft 365 Copilot Business、または Microsoft 365 E7 のライセンス | 環境にアクセスできるライセンス保有者 | 可 | Microsoft 365 Copilot の体験を確実にするには、各ユーザーに対象の Microsoft 365 Copilot ライセンスを割り当てます | 認証済みの従業員向け利用は含まれます（公正利用の範囲内） |
-| **Copilot Studio クレジットパック（単体）** | 無料の Copilot Studio ユーザーライセンスを持つエージェント作成者 | 可 | 公開後のエージェントの利用者に特別な Copilot Studio ライセンスは不要。ただし Teams などのチャネルへのアクセスは必要 | テナントの Copilot クレジット |
-| **Copilot Studio の従量課金または事前購入プラン** | Copilot Studio Author グループのエージェント作成者 | 可 | 公開後のエージェントの利用者に特別な Copilot Studio ライセンスは不要。ただしチャネルへのアクセスは必要 | テナントの課金プラン / Copilot クレジット |
-| **Copilot Studio Teams プラン** | クラシックエージェントの作成者 | Teams のみ | Teams へのアクセス | **本ガイドの対象外。** Teams プランには Power Platform コネクタがありませんが、Copilot Studio の MCP アクセスはそれに依存します |
+### エージェントの Copilot クレジット
 
-主なプランの注意点:
+このガイドで作成するエージェントは **Microsoft Copilot ハーネス** で動作します。作成、テスト、そして Rimo ツールの呼び出しを含むすべての会話で Copilot クレジットを使います。Microsoft はこのハーネスについて Microsoft 365 Copilot ライセンスによる免除を記載しておらず、ライセンスを割り当ててもクレジットは増えません。エージェントがある環境に、次のいずれかの方法で Copilot クレジットを用意してください。
 
-- **試用版はエージェントの作成とテストはできますが、公開はできません。**
-- クレジットパック（単体）の場合、管理者がテナントの容量を購入し、各エージェント作成者に `$0` の **Copilot Studio ユーザーライセンス** を割り当てます。
-- 従量課金または事前購入プランの場合、管理者が課金を環境にひも付け、エージェント作成者に **Copilot Studio Author** の役割を付与します。
-- **公開された** エージェントの利用者には、特別な Copilot Studio ライセンスは不要です。Microsoft 365 Copilot を持たない利用者の利用は、テナントの Copilot Studio 容量または従量課金メーターを消費します。
+| 方法 | 設定場所 | 注意点 |
+|---|---|---|
+| **Copilot クレジット パック** | Microsoft 365 管理センター（**請求（Billing） → サービスの購入（Purchase services）**）で **Copilot Studio** を購入し、Power Platform 管理センター（**ライセンス（Licensing） → Copilot Studio → Copilot クレジットの管理（Manage Copilot Credits）**）で環境にクレジットを割り当てます | 月単位。未使用のクレジットは翌月に繰り越されません。既定の環境でも使えます |
+| **従量課金** | Power Platform 管理センター → **ライセンス（Licensing） → 従量課金制プラン（Pay-as-you-go plans） → 新しい請求プラン（New billing plan）**。Azure サブスクリプションにひも付けます | **運用環境とサンドボックス環境のみ** — 既定の環境では使えません |
+| **購入前プラン** | Azure portal | 1 年間の前払い Copilot クレジット |
 
-> **公開後のエージェントの実行容量。** 作成とテストの消費はごくわずかですが、エージェントが組織全体で稼働し始めると、その利用は Copilot クレジットを消費します。広く展開する前に、環境で **従量課金** を有効にするか、**Copilot クレジットパック** を割り当てておいてください。そうしないとユーザーが *「This agent is currently unavailable. It has reached its usage limit.（このエージェントは現在利用できません。利用上限に達しました。）」* に遭遇することがあります。
+クレジットがないと、作成・テスト・チャットが *「継続するにはクレジットが必要です（You need credits to continue）」* で止まります。
 
-[Copilot Studio のライセンス](https://learn.microsoft.com/ja-jp/microsoft-copilot-studio/billing-licensing)、[ライセンスの割り当てとアクセス管理](https://learn.microsoft.com/ja-jp/microsoft-copilot-studio/requirements-licensing)、[Microsoft 365 Copilot のライセンスモデル](https://learn.microsoft.com/ja-jp/microsoft-365/copilot/extensibility/prerequisites#agent-capabilities-and-licensing-models)、および [2026 年 6 月版 Copilot Studio ライセンスガイド](https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/microsoft/bade/documents/products-and-services/en-us/bizapps/Microsoft-Copilot-Studio-Licensing-Guide-June-2026-PUB.pdf) を参照してください。
+> **ほとんどのユーザーが Microsoft 365 Copilot ライセンスを持っている場合は?** **新しいエージェント（New agent）** の横の **▾** を開き、**Standard** と表示された **Agent** を選んでください。Copilot Studio は標準エージェントに *「It doesn't use Copilot Credits for users with a Microsoft 365 Copilot license.（Microsoft 365 Copilot ライセンスを持つユーザーには Copilot クレジットを使いません）」* と表示します。このライセンスを持たないユーザーは、引き続き環境のクレジットを使います。Rimo は **Tools → Add a tool → Add new MCP** から同じサーバー情報で追加します。ユーザーごとのサインインにするには、Rimo ツールを開き **Additional details** → **Credentials to use: End user credentials** を選びます。このガイドの画面は既定のエージェントのものです。
+
+### エージェント作成者のライセンス
+
+| Microsoft の構成 | 公開可否 |
+|---|---|
+| **Copilot Studio 試用版** | 不可 — テストパネルのみ |
+| **Microsoft 365 Copilot** ライセンス | 可 |
+| 無料の **Copilot Studio ユーザー ライセンス**（テナントに Copilot クレジット パックが必要） | 可 |
+| **Copilot Studio 作成者** のセキュリティ グループ（従量課金を利用） | 可 |
+| **Copilot Studio Teams プラン** | **本ガイドの対象外。** Teams プランには Power Platform コネクタがありませんが、Copilot Studio の MCP アクセスはそれに依存します |
+
+公開後のエージェントの利用者に Copilot Studio ライセンスは不要です。ただし Teams などのチャネルへのアクセスは必要です。
+
+[Copilot Studio のハーネス](https://learn.microsoft.com/ja-jp/microsoft-copilot-studio/harnesses-overview)、[Microsoft Copilot ハーネスの課金](https://learn.microsoft.com/ja-jp/microsoft-copilot-studio/agents-experience/billing-credit-overview)、[Copilot クレジットの管理](https://learn.microsoft.com/ja-jp/power-platform/admin/manage-copilot-studio-copilot-credits-capacity)、[従量課金の設定](https://learn.microsoft.com/ja-jp/power-platform/admin/pay-as-you-go-set-up)、[Copilot Studio のライセンス](https://learn.microsoft.com/ja-jp/microsoft-copilot-studio/billing-licensing)、および [Copilot Studio ライセンスガイド](https://go.microsoft.com/fwlink/?linkid=2320995) を参照してください。
 
 ---
 
@@ -179,7 +190,7 @@ Rimo ツールが、各従業員をエージェント作成者ではなく **本
 
 | タスク | 最小限の役割または権限 |
 |---|---|
-| エージェントの作成・設定・公開 | エージェントの所有者/編集者、および上記の Copilot Studio ユーザーライセンスまたは Copilot Studio Author ライセンス |
+| エージェントの作成・設定・公開 | エージェントの所有者/編集者、および上記のエージェント作成者のライセンス |
 | Microsoft 365 管理センターでエージェントを承認・管理 | **AI 管理者（AI Administrator）** |
 | Teams アプリの公開範囲・自動インストール・ピン留めの管理 | **Teams 管理者（Teams Administrator）** |
 | 公開されたエージェントの利用 | エージェントとそのチャネルにアクセスできる通常のテナントユーザー |
@@ -230,7 +241,7 @@ Rimo ツールを追加すると、Power Platform 環境にエージェント作
 組織全体に提出する前に、通常の従業員と同じ流れでテストします。2 つのアカウントを使います。
 
 - **アカウント A — エージェント作成者/管理者:** 公開が可能な Copilot Studio ライセンス（試用版は不可）、エージェントの環境へのアクセス、および組織への展開も承認する場合は **AI 管理者（AI Administrator）**。
-- **アカウント B — 通常のエンドユーザー:** 同じ Entra テナント内の、エージェント作成者/管理者の役割を持たない普通のアカウント。Teams へのアクセスと、自分の Rimo アカウント。（Teams ではなく Microsoft 365 Copilot アプリでテストする場合は、Microsoft 365 Copilot ライセンスを付与します。）
+- **アカウント B — 通常のエンドユーザー:** 同じ Entra テナント内の、エージェント作成者/管理者の役割を持たない普通のアカウント。Teams へのアクセスと、自分の Rimo アカウント。
 
 ### エージェント作成者 / アカウント A
 
@@ -370,7 +381,9 @@ Rimo は、サインイン中のユーザーが、承認した Rimo 組織の中
 
 **Rimo のサインインは成功するのに、接続が「Not connected」のまま。** これは、エージェントが専用の（既定以外の）Power Platform 環境にある場合に起こります。この場合、各ユーザーは接続を保存する前に、その環境での役割も必要です。エージェント作成者に依頼して、エージェントの環境でユーザーに **環境作成者（Environment Maker）** の役割を付与してください — 組織全体では、一人ずつではなくセキュリティグループ経由で付与します。
 
-**「This agent is currently unavailable. It has reached its usage limit.」と表示される。** 環境の Copilot クレジットが不足しています。エージェント作成者または管理者が従量課金を有効にするか、Copilot クレジットパックを割り当てる必要があります — [公開後のエージェントの実行容量](#choose-your-microsoft-plan) を参照。
+**「継続するにはクレジットが必要です（You need credits to continue）」と表示される（エラーコード `EnforcementUsageCredits`）。** エージェントがある環境に Copilot クレジットがないため、作成・テスト・チャットが止まっています。ユーザーにライセンスを割り当ててもクレジットは増えません。管理者がその環境にクレジットを割り当てるか、従量課金プランをひも付けてください（運用環境とサンドボックス環境のみ）— [Microsoft のプランを選ぶ](#choose-your-microsoft-plan) を参照。反映まで最大 15 分ほどかかることがあります。
+
+**「This agent is currently unavailable. It has reached its usage limit.」と表示される。** 環境の Copilot クレジットを使い切っています。管理者がクレジットを追加で割り当てるか、従量課金プランをひも付けてください — [Microsoft のプランを選ぶ](#choose-your-microsoft-plan) を参照。
 
 **エンドユーザーがエージェントをインストールできない。** 両方の Microsoft アカウントが同じテナントにあること、ユーザーがエージェントのアクセス割り当てに含まれていること、Teams への Power Platform アプリの追加が許可されていること、エージェントが Teams と Microsoft 365 Copilot のチャネルで公開されていることを確認してください。
 
@@ -383,6 +396,8 @@ Rimo は、サインイン中のユーザーが、承認した Rimo 組織の中
 - [既存の MCP サーバーを Copilot Studio エージェントに接続する](https://learn.microsoft.com/ja-jp/microsoft-copilot-studio/mcp-add-existing-server-to-agent)
 - [ツールのユーザー認証を構成する](https://learn.microsoft.com/ja-jp/microsoft-copilot-studio/configure-enduser-authentication)
 - [Copilot Studio のライセンス](https://learn.microsoft.com/ja-jp/microsoft-copilot-studio/billing-licensing)
+- [Copilot Studio のハーネス](https://learn.microsoft.com/ja-jp/microsoft-copilot-studio/harnesses-overview)
+- [Copilot クレジットの管理](https://learn.microsoft.com/ja-jp/power-platform/admin/manage-copilot-studio-copilot-credits-capacity)
 - [ライセンスの割り当てとアクセス管理](https://learn.microsoft.com/ja-jp/microsoft-copilot-studio/requirements-licensing)
 - [Teams と Microsoft 365 Copilot に公開する](https://learn.microsoft.com/ja-jp/microsoft-copilot-studio/publication-add-bot-to-microsoft-teams)
 - [エージェント管理の役割と権限](https://learn.microsoft.com/ja-jp/microsoft-365/admin/manage/agent-roles-perms?view=o365-worldwide)

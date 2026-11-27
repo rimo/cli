@@ -44,6 +44,8 @@ Skip this section if you already have an agent — go to [Add Rimo MCP to your a
 3. Select the name at the top and type the agent's name (for example, `Rimo`). In **Instructions**, describe how it should behave — see [Recommended agent instructions](#recommended-agent-instructions) below.
 4. Copilot Studio configures the agent for **Microsoft Entra ID** authentication automatically. Leave it on.
 
+> **Copilot Credits from the start.** **New agent** creates an agent on the **Microsoft Copilot** harness, shown in the **Agent harness** column of the **Agents** list. It uses Copilot Credits while you build and test it, so the environment needs credits before you start — see [Choose your Microsoft plan](#choose-your-microsoft-plan).
+
 See [Create and edit agents](https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-first-bot) for the full walkthrough.
 
 ### Recommended agent instructions
@@ -142,26 +144,35 @@ Confirm the Rimo tool signs each employee in with **their own** Rimo account, no
 
 ## Choose your Microsoft plan
 
-You've built and tested the agent — to **publish** it you need a publish-capable Microsoft plan. This table is about **Microsoft** — what your organization needs in Copilot Studio to build, publish, and run the agent. It is **not** a Rimo plan: Rimo doesn't charge for this and there's no special Rimo plan to buy — every user just signs in with their existing Rimo account.
+This is about **Microsoft** — what your organization needs in Copilot Studio to build, publish, and run the agent. It is **not** a Rimo plan: Rimo doesn't charge for this and there's no special Rimo plan to buy — every user just signs in with their existing Rimo account.
 
-| Microsoft setup | Who can build | Can publish? | What end users need | How usage is paid |
-|---|---|---:|---|---|
-| **Copilot Studio trial** | The trial user | No | Not applicable | Test panel only |
-| **Microsoft 365 Copilot** — the add-on, Microsoft 365 Copilot Business, or Microsoft 365 E7 entitlement | A licensed user with environment access | Yes | For the assured Microsoft 365 Copilot experience, assign an eligible Microsoft 365 Copilot entitlement to each user | Included for authenticated employee-facing use, subject to fair-use limits |
-| **Standalone Copilot Studio credit pack** | A maker with the free Copilot Studio User License | Yes | No special Copilot Studio license for users of the published agent; they still need access to the channel, such as Teams | Tenant Copilot Credits |
-| **Copilot Studio pay-as-you-go or a pre-purchase plan** | A maker in the Copilot Studio Author group | Yes | No special Copilot Studio license for users of the published agent; they still need access to the channel | Tenant billing plan / Copilot Credits |
-| **Copilot Studio Teams plan** | Classic-agent makers | Teams only | Teams access | **Not covered by this guide.** The Teams plan lacks Power Platform connectors, while Copilot Studio MCP access relies on them |
+### Copilot Credits for the agent
 
-Important plan details:
+The agent this guide builds runs on the **Microsoft Copilot** harness. It uses Copilot Credits for building, testing, and every conversation, including Rimo tool calls. Microsoft documents no Microsoft 365 Copilot license exemption for this harness, and licenses don't add credits. Give the environment that contains the agent Copilot Credits in one of these ways:
 
-- A **trial can create and test** the agent, but it **cannot publish** it.
-- With a standalone credit pack, the administrator purchases tenant capacity and assigns the `$0` **Copilot Studio User License** to each maker.
-- With pay-as-you-go or a pre-purchase plan, the administrator links billing to the environment and grants makers the **Copilot Studio Author** role.
-- Users of a **published** agent do not need a special Copilot Studio license. If they don't have Microsoft 365 Copilot, their use consumes the tenant's Copilot Studio capacity or pay-as-you-go meter.
+| Option | Where to set it up | Notes |
+|---|---|---|
+| **Copilot Credit pack** | Buy **Copilot Studio** in the Microsoft 365 admin center (**Billing → Purchase services**), then allocate credits to the environment in the Power Platform admin center (**Licensing → Copilot Studio → Manage Copilot Credits**) | Monthly; unused credits don't carry over. Works in the Default environment |
+| **Pay-as-you-go** | Power Platform admin center → **Licensing → Pay-as-you-go plans → New billing plan**, linked to an Azure subscription | **Production and Sandbox environments only** — not the Default environment |
+| **Pre-purchase plan** | Azure portal | One-year prepaid Copilot Credits |
 
-> **Runtime capacity for a published agent.** Building and testing draws almost nothing, but once the agent is live for the whole organization its use consumes Copilot Credits. Before you roll out widely, make sure the environment has **pay-as-you-go** enabled or a **Copilot Credit pack** allocated — otherwise users can hit *"This agent is currently unavailable. It has reached its usage limit."*
+Without credits, building, testing, and chatting stop with *"You need credits to continue"*.
 
-See [Copilot Studio licensing](https://learn.microsoft.com/en-us/microsoft-copilot-studio/billing-licensing), [assign licenses and manage access](https://learn.microsoft.com/en-us/microsoft-copilot-studio/requirements-licensing), [Microsoft 365 Copilot licensing models](https://learn.microsoft.com/en-us/microsoft-365/copilot/extensibility/prerequisites#agent-capabilities-and-licensing-models), and the [June 2026 Copilot Studio Licensing Guide](https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/microsoft/bade/documents/products-and-services/en-us/bizapps/Microsoft-Copilot-Studio-Licensing-Guide-June-2026-PUB.pdf).
+> **Most users have Microsoft 365 Copilot licenses?** Open the **▾** next to **New agent** and choose **Agent** marked **Standard** instead. Copilot Studio labels a standard agent: *"It doesn't use Copilot Credits for users with a Microsoft 365 Copilot license."* Users without that license still use the environment's credits. Add Rimo with **Tools → Add a tool → Add new MCP** and the same server details; for per-user sign-in, open the Rimo tool → **Additional details** → **Credentials to use: End user credentials**. The screens in this guide show the default agent.
+
+### Licenses for the maker
+
+| Microsoft setup | Can publish? |
+|---|---|
+| **Copilot Studio trial** | No — test panel only |
+| **Microsoft 365 Copilot** license | Yes |
+| Free **Copilot Studio User License**, with a Copilot Credit pack in the tenant | Yes |
+| **Copilot Studio authors** security group, with pay-as-you-go | Yes |
+| **Copilot Studio Teams plan** | **Not covered by this guide.** The Teams plan lacks Power Platform connectors, while Copilot Studio MCP access relies on them |
+
+Users of a published agent don't need a Copilot Studio license; they need access to the channel, such as Teams.
+
+See [Copilot Studio harnesses](https://learn.microsoft.com/en-us/microsoft-copilot-studio/harnesses-overview), [Microsoft Copilot harness billing](https://learn.microsoft.com/en-us/microsoft-copilot-studio/agents-experience/billing-credit-overview), [manage Copilot Credits](https://learn.microsoft.com/en-us/power-platform/admin/manage-copilot-studio-copilot-credits-capacity), [set up pay-as-you-go](https://learn.microsoft.com/en-us/power-platform/admin/pay-as-you-go-set-up), [Copilot Studio licensing](https://learn.microsoft.com/en-us/microsoft-copilot-studio/billing-licensing), and the [Copilot Studio Licensing Guide](https://go.microsoft.com/fwlink/?linkid=2320995).
 
 ---
 
@@ -171,7 +182,7 @@ The maker does not have to be a tenant administrator.
 
 | Task | Minimum role or permission |
 |---|---|
-| Build, configure, and publish the agent | Agent Owner/Editor plus the Copilot Studio User License or Copilot Studio Author entitlement described above |
+| Build, configure, and publish the agent | Agent Owner/Editor plus a maker license described above |
 | Approve and manage the agent in the Microsoft 365 admin center | **AI Administrator** |
 | Manage Teams app availability, automatic installation, and pinning | **Teams Administrator** |
 | Use the published agent | Normal tenant user with access to the agent and its channel |
@@ -221,7 +232,7 @@ Leave the existing **Power Virtual Agents Service** entry in place — it's adde
 Before submitting the agent to the whole organization, test it the way a normal employee would. Use two accounts:
 
 - **Account A — maker/admin:** a publish-capable Copilot Studio entitlement (not a trial), access to the agent's environment, and **AI Administrator** if it will also approve the org deployment.
-- **Account B — normal end user:** an ordinary account in the same Entra tenant with no maker/admin role, Teams access, and its own Rimo account. (To test in the Microsoft 365 Copilot app rather than Teams, give it a Microsoft 365 Copilot license.)
+- **Account B — normal end user:** an ordinary account in the same Entra tenant with no maker/admin role, Teams access, and its own Rimo account.
 
 ### Maker / Account A
 
@@ -361,7 +372,9 @@ Rimo only ever shows the agent what the signed-in user can see in the Rimo organ
 
 **Rimo sign-in succeeds but the connection stays "Not connected."** This happens when the agent lives in a dedicated (non-Default) Power Platform environment: each user also needs a role in that environment before their connection can be saved. Ask the maker to grant users an **Environment Maker** role in the agent's environment — for the whole organization, via a security group rather than one user at a time.
 
-**"This agent is currently unavailable. It has reached its usage limit."** The environment ran out of Copilot Credits. The maker or admin needs to enable pay-as-you-go or allocate a Copilot Credit pack — see [Runtime capacity](#choose-your-microsoft-plan).
+**"You need credits to continue" (error code `EnforcementUsageCredits`).** The environment that contains the agent has no Copilot Credits, so building, testing, and chatting stop. Assigning user licenses doesn't add credits. An admin allocates credits to that environment or links a pay-as-you-go plan (Production and Sandbox environments only) — see [Choose your Microsoft plan](#choose-your-microsoft-plan). It can take up to 15 minutes to apply.
+
+**"This agent is currently unavailable. It has reached its usage limit."** The environment used up its Copilot Credits. An admin allocates more credits or links a pay-as-you-go plan — see [Choose your Microsoft plan](#choose-your-microsoft-plan).
 
 **The end user can't install the agent.** Confirm both Microsoft accounts are in the same tenant, the user is included in the agent's access assignment, Power Platform apps are allowed in Teams, and the agent is published with the Teams and Microsoft 365 Copilot channel.
 
@@ -374,6 +387,8 @@ Rimo only ever shows the agent what the signed-in user can see in the Rimo organ
 - [Connect an existing MCP server to a Copilot Studio agent](https://learn.microsoft.com/en-us/microsoft-copilot-studio/mcp-add-existing-server-to-agent)
 - [Configure user authentication for tools](https://learn.microsoft.com/en-us/microsoft-copilot-studio/configure-enduser-authentication)
 - [Copilot Studio licensing](https://learn.microsoft.com/en-us/microsoft-copilot-studio/billing-licensing)
+- [Copilot Studio harnesses](https://learn.microsoft.com/en-us/microsoft-copilot-studio/harnesses-overview)
+- [Manage Copilot Credits](https://learn.microsoft.com/en-us/power-platform/admin/manage-copilot-studio-copilot-credits-capacity)
 - [Assign licenses and manage access](https://learn.microsoft.com/en-us/microsoft-copilot-studio/requirements-licensing)
 - [Publish to Teams and Microsoft 365 Copilot](https://learn.microsoft.com/en-us/microsoft-copilot-studio/publication-add-bot-to-microsoft-teams)
 - [Agent management roles and permissions](https://learn.microsoft.com/en-us/microsoft-365/admin/manage/agent-roles-perms?view=o365-worldwide)
